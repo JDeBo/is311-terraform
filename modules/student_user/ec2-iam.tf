@@ -10,9 +10,12 @@ data "aws_iam_policy_document" "ec2" {
     ]
 
     condition {
-      test = "StringEquals"
+      test     = "StringEquals"
       variable = "aws:ResourceTag/Owner"
-      values = var.student_name
+      values = [
+        "Group*",
+        var.student_name,
+      ]
     }
   }
 
@@ -27,10 +30,12 @@ data "aws_iam_policy_document" "ec2" {
     ]
 
     condition {
-      test = "StringEquals"
+      test     = "StringEquals"
       variable = "aws:ResourceTag/Owner"
 
-      values = "Group*"
+      values = [
+        "Group*",
+      ]
     }
   }
 

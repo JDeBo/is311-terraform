@@ -6,7 +6,7 @@ data "aws_iam_policy_document" "s3" {
     ]
 
     resources = [
-      "arn:aws:s3:::*${var.student_resource_name}*",
+      "arn:aws:s3:::*${var.student_resource_id}*",
     ]
   }
 }

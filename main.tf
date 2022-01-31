@@ -7,6 +7,13 @@ terraform {
 }
 
 provider "aws" {
-    region = "us-east-2"
+  region = "us-east-2"
 }
 
+module "student_iam" {
+  source = "./modules/student_user"
+
+  for_each            = var.students
+  student_name        = each.value
+  student_resource_id = each.key
+}
