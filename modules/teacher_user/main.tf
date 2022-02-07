@@ -20,7 +20,7 @@ resource "aws_iam_user_login_profile" "student" {
   }
 }
 
-data "aws_iam_policy_document" "user" {
+data "aws_iam_policy_document" "main" {
 
   statement {
 
@@ -33,6 +33,36 @@ data "aws_iam_policy_document" "user" {
       "arn:aws:iam::932196253170:user/${var.student_resource_id}",
     ]
   }
+  statement {
+
+    actions = [
+      "ec2:*",
+    ]
+
+    resources = [
+      "arn:aws:ec2:::*",
+    ]
+
+    condition {
+      test     = "StringEquals"
+      variable = "aws:ResourceTag/Owner"
+      values = [
+        "Group*",
+        var.student_name,
+      ]
+    }
+  }
+
+  statement {
+    actions = [
+      "s3:*",
+    ]
+
+    resources = [
+      "arn:aws:s3:::*${var.class_id}*",
+    ]
+  }
+
 
 }
 
