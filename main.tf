@@ -26,4 +26,5 @@ module "teacher_iam" {
   teacher_name        = each.value.name
   teacher_resource_id = each.key
   keybase_id          = each.value.keybase_id
+  class_id            = var.class_id
 }

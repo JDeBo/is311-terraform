@@ -19,5 +19,5 @@ resource "local_file" "student" {
 
 resource "local_file" "teacher" {
   sensitive_content = jsonencode({ for k, v in module.teacher_iam : k => v })
-  filename          = "${path.module}/students.txt"
+  filename          = "${path.module}/teachers.txt"
 }
