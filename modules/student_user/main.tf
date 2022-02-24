@@ -30,7 +30,7 @@ data "aws_iam_policy_document" "user" {
     ]
 
     resources = [
-      "arn:aws:iam::932196253170:user/${var.student_resource_id}",
+      "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/${var.student_resource_id}",
     ]
   }
 
@@ -46,3 +46,6 @@ resource "aws_iam_user_policy_attachment" "user" {
   user       = aws_iam_user.student.name
   policy_arn = aws_iam_policy.user.arn
 }
+
+data "aws_caller_identity" "current" {}
+data "aws_region" "current" {}

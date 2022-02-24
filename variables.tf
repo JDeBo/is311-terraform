@@ -11,7 +11,7 @@ variable "students" {
 variable "teachers" {
   description = "Map of teachers to create users for."
   type        = map(map(string))
-  default = {}
+  default     = {}
 }
 
 variable "class_id" {

@@ -3,7 +3,7 @@ output "access_key" {
 }
 
 output "secret_access_key" {
-  value = aws_iam_access_key.student.secret
+  value = aws_iam_access_key.student.encrypted_secret
 }
 
 output "encrypted_password" {

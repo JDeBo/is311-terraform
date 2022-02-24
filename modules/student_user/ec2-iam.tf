@@ -3,15 +3,16 @@ data "aws_iam_policy_document" "ec2" {
 
     actions = [
       "ec2:*",
+      "ec2-instance-connect:SendSSHPublicKey",
     ]
 
     resources = [
-      "arn:aws:ec2:::*",
+      "arn:aws:ec2:${data.aws_region.current.id}:${data.aws_caller_identity.current.account_id}:instance/*",
     ]
 
     condition {
-      test     = "StringEquals"
-      variable = "aws:ResourceTag/Owner"
+      test     = "StringLike"
+      variable = "aws:ResourceTag/Name"
       values = [
         "Group*",
         var.student_name,
@@ -20,25 +21,12 @@ data "aws_iam_policy_document" "ec2" {
   }
 
   statement {
-
     actions = [
-      "ec2:*",
+      "ec2:DescribeInstances"
     ]
 
-    resources = [
-      "arn:aws:ec2:::*",
-    ]
-
-    condition {
-      test     = "StringEquals"
-      variable = "aws:ResourceTag/Owner"
-
-      values = [
-        "Group*",
-      ]
-    }
+    resources = ["*"]
   }
-
 }
 
 resource "aws_iam_policy" "ec2" {
@@ -50,4 +38,9 @@ resource "aws_iam_policy" "ec2" {
 resource "aws_iam_user_policy_attachment" "ec2" {
   user       = aws_iam_user.student.name
   policy_arn = aws_iam_policy.ec2.arn
+}
+
+resource "aws_iam_user_policy_attachment" "ec2_read" {
+  user       = aws_iam_user.student.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ReadOnlyAccess"
 }

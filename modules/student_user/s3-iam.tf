@@ -9,6 +9,18 @@ data "aws_iam_policy_document" "s3" {
       "arn:aws:s3:::*${var.student_resource_id}*",
     ]
   }
+    statement {
+    sid = "globalList"
+
+    actions = [
+      "s3:ListAllMyBuckets",
+      "s3:GetBucketLocation",
+    ]
+
+    resources = [
+      "arn:aws:s3:::*",
+    ]
+  }
 }
 
 resource "aws_iam_policy" "s3" {
