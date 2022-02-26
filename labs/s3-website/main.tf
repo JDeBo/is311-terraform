@@ -21,11 +21,11 @@ data "terraform_remote_state" "master" {
 }
 
 resource "aws_s3_bucket" "this" {
-  for_each = data.terraform_remote_state.master.outputs.student_list
-  bucket = "is311-website-hosting-${each.value}"
+  for_each = toset(data.terraform_remote_state.master.outputs.student_list)
+  bucket   = "is311-website-hosting-${each.value}"
 
   tags = {
-    Owner        = each.key
+    Owner = each.key
   }
-  
+
 }

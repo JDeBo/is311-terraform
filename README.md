@@ -10,6 +10,8 @@ git clone git@github.com:JDeBo/is311-terraform.git
 
 Students will need to create accounts at [keybase.io](https://keybase.io) in order to have their IAM users generated
 
+All terraform in this repo assumes AWS access is set through exporting environment variables. See [AWS's Documentation](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-envvars.html)
+
 ## Usage
 These commands won't run with the sample users in students.tfvars and teachers.tfvars due to their fake keybase names
 
