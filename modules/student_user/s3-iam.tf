@@ -15,10 +15,15 @@ data "aws_iam_policy_document" "s3" {
     actions = [
       "s3:ListAllMyBuckets",
       "s3:GetBucketLocation",
+      "s3:GetAccountPublicAccessBlock",
+      "s3:GetBucketPublicAccessBlock",
+      "s3:GetBucketPolicyStatus",
+      "s3:GetBucketAcl",
+      "s3:ListAccessPoints",
     ]
 
     resources = [
-      "arn:aws:s3:::*",
+      "*",
     ]
   }
 }

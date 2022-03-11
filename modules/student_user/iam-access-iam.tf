@@ -3,6 +3,7 @@ data "aws_iam_policy_document" "iam_access_analyzer" {
   statement {
     actions = [
       "access-analyzer:List*",
+      "access-analyzer:Get*",
       "access-analyzer:ValidatePolicy",
     ]
 
