@@ -32,4 +32,3 @@ override.tf.json
 *.lock.hcl
 *.txt
 *.json
-students.json
