@@ -12,7 +12,7 @@ resource "aws_cloudwatch_event_target" "lambda" {
 
 data "aws_iam_policy_document" "eventbridge_lambda" {
   statement {
-    sid = "EventBridgeInvokeLambda"
+    sid     = "EventBridgeInvokeLambda"
     effect  = "Allow"
     actions = ["lambda:InvokeFunction"]
 
@@ -27,8 +27,8 @@ data "aws_iam_policy_document" "eventbridge_lambda" {
 
 resource "aws_iam_policy" "eventbridge_lambda" {
   path        = "/"
-  description = "EventBridgeInvokeLambda"  
-  policy = data.aws_iam_policy_document.eventbridge_lambda.json
+  description = "EventBridgeInvokeLambda"
+  policy      = data.aws_iam_policy_document.eventbridge_lambda.json
 }
 resource "aws_iam_role_policy_attachment" "eventbridge_lambda" {
   role       = aws_iam_role.iam_for_lambda.name
