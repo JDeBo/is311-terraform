@@ -15,7 +15,7 @@ data "aws_iam_policy_document" "ec2" {
       variable = "aws:ResourceTag/Name"
       values = [
         "Group*",
-        var.student_name,
+        "*${var.student_resource_id}",
       ]
     }
   }

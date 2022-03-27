@@ -1,23 +1,14 @@
 terraform {
-  backend "s3" {
-    bucket = "terraform-remote-state-932196253170"
-    key    = "is-311-ec2-in-class"
-    region = "us-east-2"
+  cloud {
+    organization = "jdebo-automation"
+    workspaces {
+      name = "is311-ec2-individual-lab"
+    }
   }
 }
 
 provider "aws" {
   region = "us-east-2"
-}
-
-data "terraform_remote_state" "master" {
-  backend = "s3"
-
-  config = {
-    bucket = "terraform-remote-state-932196253170"
-    key    = "is-311"
-    region = "us-east-2"
-  }
 }
 
 data "aws_ami" "linux_2" {
@@ -37,14 +28,14 @@ data "aws_ami" "linux_2" {
 }
 
 resource "aws_instance" "lab" {
-  for_each               = toset(data.terraform_remote_state.master.outputs.student_list)
+  for_each               = var.students
   ami                    = data.aws_ami.linux_2.id
   instance_type          = "t3.nano"
   key_name               = aws_key_pair.key_pair.id
   vpc_security_group_ids = [aws_security_group.allow_ssh.id]
 
   tags = {
-    Name = "is311-${each.value}"
+    Name = "is311-${each.key}"
   }
 
   depends_on = [

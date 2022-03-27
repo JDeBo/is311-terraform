@@ -1,5 +1,5 @@
 resource "aws_iam_role" "iam_for_lambda" {
-  name = "iam_for_lambda"
+  name = "StopEC2LambdaRole"
 
   assume_role_policy = <<EOF
 {
@@ -22,7 +22,7 @@ data "aws_iam_policy_document" "ec2_lambda" {
   statement {
     sid       = "LambdaStopInstances"
     effect    = "Allow"
-    actions   = ["ec2:StopInstance"]
+    actions   = ["ec2:StopInstances"]
     resources = ["*"]
   }
 }
@@ -32,28 +32,37 @@ resource "aws_iam_policy" "ec2_lambda" {
   description = "LambdaStopEC2"
   policy      = data.aws_iam_policy_document.ec2_lambda.json
 }
-resource "aws_iam_role_policy_attachment" "lambda_logs" {
+
+resource "aws_iam_role_policy_attachment" "ec2_lambda" {
   role       = aws_iam_role.iam_for_lambda.name
   policy_arn = aws_iam_policy.ec2_lambda.arn
 }
 
+resource "aws_iam_role_policy_attachment" "basic_execution" {
+  role       = aws_iam_role.iam_for_lambda.name
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+}
+
 resource "aws_lambda_function" "auto_stopper" {
-  filename         = "lambda_function_payload.zip"
-  function_name    = "lambda_function_name"
+  filename         = "auto_stopper.zip"
+  function_name    = "auto_stop_ec2s"
   role             = aws_iam_role.iam_for_lambda.arn
   handler          = "main.lambda_handler"
-  source_code_hash = filebase64sha256("auto_stopper.zip")
+  source_code_hash = data.archive_file.auto_stopper.output_base64sha256
 
   runtime = "python3.8"
 
   environment {
     variables = {
-      EC2_INSTANCES = aws_instance.lab.id
+      EC2_INSTANCES = jsonencode({ for k, v in aws_instance.lab : k => v.id })
     }
   }
+  depends_on = [
+    data.archive_file.auto_stopper
+  ]
 }
 
-data "archive_file" "init" {
+data "archive_file" "auto_stopper" {
   type        = "zip"
   source_file = "${path.module}/auto_stopper/main.py"
   output_path = "${path.module}/auto_stopper.zip"

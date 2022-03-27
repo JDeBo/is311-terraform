@@ -1,5 +1,5 @@
 # EC2 Lab for Groups
-This lab provisions EC2 instances for students to use in small groups. The instances used are Amazon Linux 2, at the t2.micro size (free tier elligible).
+This lab provisions EC2 instances for students to use in small groups. The instances used are Amazon Linux 2, at the t2.micro size (free tier elligible). The plan/apply will prompt you for how many instances you wish to create, or you can specify during the command (as shown below).
 
 
 ## Usage
@@ -9,10 +9,10 @@ To update instance types or sizes, edit main.tf
 terraform init 
 
 # runs a speculative plan showing users to be created
-terraform plan --var count=1 #update count to desired number of groups
+terraform plan -var instance_count=1 #update count to desired number of groups
 
 # performs an apply to generate resources
-terraform apply --var count=1
+terraform apply -var instance_count=1
 
 # destroys the resources created in the apply
 terraform destroy

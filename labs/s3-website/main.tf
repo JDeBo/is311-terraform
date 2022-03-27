@@ -1,8 +1,9 @@
 terraform {
-  backend "s3" {
-    bucket = "terraform-remote-state-932196253170"
-    key    = "is-311-s3-in-class"
-    region = "us-east-2"
+  cloud {
+    organization = "jdebo-automation"
+    workspaces {
+      name = "is311-s3-website-lab"
+    }
   }
 }
 
@@ -10,22 +11,21 @@ provider "aws" {
   region = "us-east-2"
 }
 
-data "terraform_remote_state" "master" {
-  backend = "s3"
-
-  config = {
-    bucket = "terraform-remote-state-932196253170"
-    key    = "is-311"
-    region = "us-east-2"
-  }
-}
-
 resource "aws_s3_bucket" "this" {
-  for_each = toset(data.terraform_remote_state.master.outputs.student_list)
-  bucket   = "is311-website-hosting-${each.value}"
+  for_each = var.students
+  bucket   = "is311-website-hosting-${each.key}"
 
   tags = {
-    Owner = each.key
+    Owner = each.value.name
+  }
+  lifecycle {
+    ignore_changes = [
+      website,
+      website_domain,
+      website_endpoint,
+      versioning,
+      policy,
+    ]
   }
 
 }
