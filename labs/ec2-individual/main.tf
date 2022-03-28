@@ -54,7 +54,7 @@ resource "aws_security_group" "allow_ssh" {
   vpc_id      = var.vpc_id
 
   ingress {
-    description = "TLS from VPC"
+    description = "SSH from Anywhere"
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
@@ -70,6 +70,6 @@ resource "aws_security_group" "allow_ssh" {
   }
 
   tags = {
-    Name = "allow_tls"
+    Name = "allow_ssh"
   }
 }
