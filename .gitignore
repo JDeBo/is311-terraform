@@ -30,6 +30,5 @@ override.tf.json
 *tfplan*
 
 *.lock.hcl
-*.txt
 *.json
 *.zip

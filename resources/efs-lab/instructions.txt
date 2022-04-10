@@ -1,0 +1,13 @@
+These instructions are for completing the IS 311 linux lab 3. Make sure to take screenshots of the commands you run during the steps.
+
+1. Update the following to your name: James Millikin
+
+2. Create a file in your directory called tmp.txt using "touch" command
+
+3. Rename that file using the "mv" command to tmp2.txt
+
+4. Copy that file using the "cp" command to copy-of-tmp2.txt
+
+5. At this point you should have 2 files. What are they: <Type your answer here>
+
+Congrats Well done!

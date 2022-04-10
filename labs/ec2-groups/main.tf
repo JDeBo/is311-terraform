@@ -32,31 +32,39 @@ resource "aws_instance" "lab" {
   ami           = data.aws_ami.linux_2.id
   instance_type = "t2.micro"
   key_name      = aws_key_pair.key_pair.id
-  vpc_security_group_ids = [aws_security_group.allow_ssh.id]
+  vpc_security_group_ids = [aws_security_group.group_ec2.id]
 
   tags = {
     Name = "Group-${count.index+1}"
   }
 
   depends_on = [
-    aws_security_group.allow_ssh
+    aws_security_group.group_ec2
   ]
 }
 
 resource "aws_key_pair" "key_pair" {
-  key_name   = "terraform_key"
+  key_name   = "group_terraform_key"
   public_key = var.rsa_public_key
 }
 
-resource "aws_security_group" "allow_ssh" {
-  name        = "allow_ssh"
+resource "aws_security_group" "group_ec2" {
+  name        = "group_ec2"
   description = "Allow SSH inbound traffic"
   vpc_id      = var.vpc_id
 
   ingress {
-    description = "TLS from VPC"
+    description = "SSH Anywhere"
     from_port   = 22
     to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    description = "HTTP Anywhere"
+    from_port   = 80
+    to_port     = 80
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
@@ -70,6 +78,6 @@ resource "aws_security_group" "allow_ssh" {
   }
 
   tags = {
-    Name = "allow_tls"
+    Name = "group_ec2"
   }
 }
