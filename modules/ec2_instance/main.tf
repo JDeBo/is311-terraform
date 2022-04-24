@@ -17,7 +17,7 @@ data "aws_ami" "linux_2" {
 resource "aws_instance" "lab" {
   ami                    = data.aws_ami.linux_2.id
   instance_type          = var.instance_type
-  vpc_security_group_ids = [var.vpc_security_group_list]
+  vpc_security_group_ids = var.vpc_security_group_list
   subnet_id = var.subnet_id
 
   tags = {

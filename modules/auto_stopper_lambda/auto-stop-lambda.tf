@@ -54,7 +54,7 @@ resource "aws_lambda_function" "auto_stopper" {
 
   environment {
     variables = {
-      EC2_INSTANCES = jsonencode({ for k, v in var.ec2_map : k => v.id })
+      EC2_INSTANCES = jsonencode(var.ec2_map)
     }
   }
   depends_on = [
