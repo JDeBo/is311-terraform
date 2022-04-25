@@ -5,12 +5,12 @@ resource "aws_iam_user" "student" {
 
 resource "aws_iam_access_key" "student" {
   user    = aws_iam_user.student.name
-  pgp_key = "keybase:${var.keybase_id}"
+  # pgp_key = "keybase:${var.keybase_id}"
 }
 
 resource "aws_iam_user_login_profile" "student" {
   user    = aws_iam_user.student.name
-  pgp_key = "keybase:${var.keybase_id}"
+  # pgp_key = "keybase:${var.keybase_id}"
   password_length = 8
   password_reset_required = true
   lifecycle {

@@ -11,12 +11,12 @@ output "student_list" {
 #   sensitive = true
 # }
 
-resource "local_file" "student" {
-  sensitive_content = jsonencode({ for k, v in module.student_iam : k => v })
-  filename          = "${path.module}/students.json"
+resource "output" "student" {
+  value = jsonencode({ for k, v in module.student_iam : k => v })
+  # filename          = "${path.module}/students.json"
 }
 
-resource "local_file" "teacher" {
-  sensitive_content = jsonencode({ for k, v in module.teacher_iam : k => v })
-  filename          = "${path.module}/teachers.json"
+resource "output" "teacher" {
+  value = jsonencode({ for k, v in module.teacher_iam : k => v })
+  # filename          = "${path.module}/teachers.json"
 }
