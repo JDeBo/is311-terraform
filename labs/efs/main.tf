@@ -11,10 +11,11 @@ provider "aws" {
   region = "us-east-2"
 }
 
-data "tfe_outputs" "is311_ec2" {
-  organization = "jdebo-automation"
-  workspace = "is311-ec2-individual-lab"
-}
+# data "tfe_outputs" "is311_ec2" {
+#   organization = "jdebo-automation"
+#   workspace = "is311-ec2-individual-lab"
+# }
+# Only uncomment if you want to leverage the security group from the individual ec2 lab
 
 resource "aws_efs_file_system" "this" {
   availability_zone_name = "us-east-2c"
@@ -46,7 +47,7 @@ resource "aws_security_group" "allow_nfs" {
     from_port   = 2049
     to_port     = 2049
     protocol    = "tcp"
-    # security_groups = [data.tfe_outputs.is311_ec2.values.security_group]
+    # security_groups = [data.tfe_outputs.is311_ec2.values.security_group] you can use the individual ec2's for this and leverage their security group
     cidr_blocks = ["0.0.0.0/0"]
   }
 
