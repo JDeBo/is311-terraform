@@ -12,7 +12,7 @@ provider "aws" {
 }
 
 module "student_iam" {
-  source = "./modules/student_user"
+  source = "../modules/student_user"
 
   for_each            = var.students
   student_name        = each.value.name
@@ -20,8 +20,18 @@ module "student_iam" {
   keybase_id          = each.value.keybase_id
 }
 
+resource "aws_iam_group_membership" "student" {
+  name = "student_group_membership"
+
+  users = [keys(var.students)]
+
+  group = aws_iam_group.students.name
+}
+
+
+
 module "teacher_iam" {
-  source = "./modules/teacher_user"
+  source = "../modules/teacher_user"
 
   for_each            = var.teachers
   teacher_name        = each.value.name
