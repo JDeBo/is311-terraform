@@ -57,7 +57,22 @@ resource "aws_instance" "lab" {
 sudo yum install mariadb-server
 sudo systemctl enable mariadb
 sudo systemctl start mariadb
+
+echo "[mysqld]
+datadir=/var/lib/mysql
+socket=/var/lib/mysql/mysql.sock
+bind-address=0.0.0.0
+symbolic-links=0
+
+[mysqld_safe]
+log-error=/var/log/mariadb/mariadb.log
+pid-file=/var/run/mariadb/mariadb.pid
+
+\!includedir /etc/my.cnf.d" | sudo tee /etc/my.cnf > /dev/null
+
 EOF
+
+  user_data_replace_on_change = true
   tags = {
     Name = "is311-networking-mysql-server"
   }
