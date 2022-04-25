@@ -6,7 +6,7 @@ resource "aws_subnet" "this" {
   availability_zone = "us-east-2a"
 
   tags = {
-    Name = "Lab Public Subnet"
+    Name = "Lab private Subnet"
   }
 
   depends_on = [module.students]
@@ -79,19 +79,19 @@ EOF
 }
 
 resource "aws_security_group" "this" {
-  name        = "is311-networking-public-instance"
-  description = "Networking Lab public instance subnet"
+  name        = "is311-networking-private-instance"
+  description = "Networking Lab private instance subnet"
   vpc_id      = aws_vpc.networking_lab.id
 
   ingress {
-    description = "SSH from Anywhere"
-    from_port   = 22
-    to_port     = 22
+    description = "MySQL from Anywhere"
+    from_port   = 3306
+    to_port     = 3306
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = [aws_vpc.networking_lab.cidr_block]
   }
-
+  
   tags = {
-    Name = "is311-networking-public-instance"
+    Name = "is311-networking-private-instance"
   }
 }
