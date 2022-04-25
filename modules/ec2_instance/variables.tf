@@ -1,13 +1,3 @@
-variable "students" {
-  description = "Map of students to create users for."
-  type        = map(map(string))
-  default = { "justin-debo" = {
-    "name"       = "Justin DeBo"
-    "email"      = "jdebo@millikin.edu"
-    "keybase_id" = "jdebomillikin"
-  } }
-}
-
 variable "subnet_id" {
   description = "The subnet ID to deploy the ec2 instance to"
   default = ""
@@ -26,4 +16,9 @@ variable "instance_type" {
 
 variable "name" {
   description = "Name of the ec2 instance"
+}
+
+variable "instance_profile" {
+  description = "Instance profile to attach to EC2 instance"
+  default = ""
 }

@@ -19,6 +19,7 @@ resource "aws_instance" "lab" {
   instance_type          = var.instance_type
   vpc_security_group_ids = var.vpc_security_group_list
   subnet_id              = var.subnet_id
+  iam_instance_profile   = var.instance_profile
 
   tags = {
     Name = var.name

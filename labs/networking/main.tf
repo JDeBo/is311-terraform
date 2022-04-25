@@ -17,6 +17,7 @@ module "students" {
   student_id = each.key
   vpc_id = aws_vpc.networking_lab.id
   subnet_cidr = each.value
+  instance_profile = aws_iam_instance_profile.this.id
 }
 
 module "auto_stopper" {
