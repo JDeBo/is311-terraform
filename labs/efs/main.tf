@@ -46,7 +46,8 @@ resource "aws_security_group" "allow_nfs" {
     from_port   = 2049
     to_port     = 2049
     protocol    = "tcp"
-    security_groups = [data.tfe_outputs.is311_ec2.values.security_group]
+    # security_groups = [data.tfe_outputs.is311_ec2.values.security_group]
+    cidr_blocks = ["0.0.0.0/0"]
   }
 
   tags = {

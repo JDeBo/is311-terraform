@@ -28,8 +28,6 @@ resource "aws_iam_group_membership" "student" {
   group = aws_iam_group.students.name
 }
 
-
-
 module "teacher_iam" {
   source = "../modules/teacher_user"
 
