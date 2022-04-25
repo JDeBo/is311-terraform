@@ -13,10 +13,10 @@ provider "aws" {
 
 module "students" {
   source = "./student_resources"
-  for_each = { for i, v in module.subnets.networks : v.name => v }
+  for_each = module.subnets.network_cidr_blocks
   student_id = each.key
   vpc_id = aws_vpc.networking_lab.id
-  subnet_cidr = each.value.cidr_block
+  subnet_cidr = each.value
 }
 
 module "auto_stopper" {
