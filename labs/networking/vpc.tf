@@ -25,19 +25,16 @@ resource "aws_vpc_endpoint" "ssm" {
   vpc_id       = aws_vpc.networking_lab.id
   service_name = "com.amazonaws.us-east-2.ssm"
   vpc_endpoint_type = "Interface"
-  subnet_ids = [aws_subnet.this.id]
 }
 
 resource "aws_vpc_endpoint" "ec2messages" {
   vpc_id       = aws_vpc.networking_lab.id
   service_name = "com.amazonaws.us-east-2.ec2messages"
   vpc_endpoint_type = "Interface"
-  subnet_ids = [aws_subnet.this.id]
 }
 
 resource "aws_vpc_endpoint" "ssmmessages" {
   vpc_id       = aws_vpc.networking_lab.id
   service_name = "com.amazonaws.us-east-2.ssmmessages"
   vpc_endpoint_type = "Interface"
-  subnet_ids = [aws_subnet.this.id]
 }
