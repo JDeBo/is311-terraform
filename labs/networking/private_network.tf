@@ -15,7 +15,10 @@ resource "aws_subnet" "this" {
 resource "aws_route_table" "this" {
   vpc_id = aws_vpc.networking_lab.id
 
-  route = []
+  route {
+    cidr_block = "3.16.146.0/29" #AWS EC2_INSTANCE_CONNECT for us-east-2 check https://ip-ranges.amazonaws.com/ip-ranges.json for other regions
+    gateway_id = aws_internet_gateway.this.id
+  }
 
   tags = {
     Name = "Lab Private Route Table"
