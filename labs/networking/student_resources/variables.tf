@@ -16,3 +16,7 @@ variable "subnet_cidr" {
 variable "instance_profile" {
   description = "Instance profile to attach to EC2 instance"
 }
+
+variable "vpc_cidr" {
+  description = "CIDR Range for the VPC"
+}
