@@ -1,8 +1,7 @@
-resource "aws_security_group" "lab" {
-  for_each    = var.students
-  name        = "is311-networking-${each.key}"
+resource "aws_security_group" "this" {
+  name        = "is311-networking-${var.student_id}"
   description = "Networking Lab student subnet"
-  vpc_id      = aws_vpc.networking_lab.id
+  vpc_id      = var.vpc_id
 
   ingress {
     description = "SSH from Anywhere"
@@ -13,7 +12,7 @@ resource "aws_security_group" "lab" {
   }
 
   tags = {
-    Name = "is311-networking-${each.key}"
-    Owner = each.key
+    Name = "is311-networking-${var.student_id}"
+    Owner = var.student_id
   }
 }

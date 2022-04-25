@@ -12,16 +12,3 @@ module "subnets" {
   base_cidr_block = aws_vpc.networking_lab.cidr_block
   networks = [for x in keys(var.students) : {"name" = x, "new_bits" = 16}]
 }
-
-resource "aws_subnet" "student_subnets" {
-  for_each          = { for i, v in module.subnets.networks : v.name => v }
-  vpc_id            = aws_vpc.networking_lab.id
-  cidr_block        = each.value.cidr_block
-  availability_zone = "us-east-2a"
-
-  tags = {
-    Name = "is311-networking-${each.key}"
-    Owner = each.key
-  }
-}
-
