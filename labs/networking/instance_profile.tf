@@ -1,10 +1,10 @@
 resource "aws_iam_instance_profile" "this" {
-  name = "ssm-profile-for-ec2"
+  name = "SSMForEC2"
   role = aws_iam_role.this.name
 }
 
 resource "aws_iam_role" "this" {
-  name = "ssm-for-ec2"
+  name = "SSMForEC2"
   path = "/"
 
   assume_role_policy = <<EOF
