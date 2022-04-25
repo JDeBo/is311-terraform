@@ -44,7 +44,7 @@ resource "aws_iam_role_policy_attachment" "basic_execution" {
 }
 
 resource "aws_lambda_function" "auto_stopper" {
-  filename         = "auto_stopper.zip"
+  filename         = "${path.module}/auto_stopper.zip"
   function_name    = "auto_stop_ec2s_${var.use_case}"
   role             = aws_iam_role.iam_for_lambda.arn
   handler          = "main.lambda_handler"
