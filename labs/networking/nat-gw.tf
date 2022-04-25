@@ -23,7 +23,7 @@ resource "aws_eip" "this" {}
 
 resource "aws_subnet" "this" {
   vpc_id = aws_vpc.networking_lab.id
-  #   cidr_block        = 1
+  cidr_block        = "172.32.12.0/24"
   availability_zone = "us-east-2a"
 
   tags = {
