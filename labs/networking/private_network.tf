@@ -51,7 +51,7 @@ resource "aws_instance" "lab" {
   instance_type          = "t2.micro"
   vpc_security_group_ids = [aws_security_group.this.id]
   subnet_id              = aws_subnet.this.id
-  iam_instance_profile   = aws_instance_profile.this.id
+  iam_instance_profile   = aws_iam_instance_profile.this.id
   user_data              = <<EOF
 #!/bin/bash
 sudo yum install mariadb-server
