@@ -23,7 +23,7 @@ module "student_iam" {
 resource "aws_iam_group_membership" "student" {
   name = "student_group_membership"
 
-  users = [keys(var.students)]
+  users = keys(var.students)
 
   group = aws_iam_group.students.name
 }

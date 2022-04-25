@@ -1,6 +1,6 @@
 resource "aws_iam_group" "students" {
   name = "students"
-  path = "/users/"
+  path = "/groups/"
 }
 
 resource "aws_iam_group_policy_attachment" "vpc_read" {
@@ -13,12 +13,12 @@ resource "aws_iam_group_policy_attachment" "elb" {
   policy_arn = "arn:aws:iam::aws:policy/ElasticLoadBalancingFullAccess"
 }
 
-resource "aws_iam_user_policy_attachment" "ec2_read" {
-  user       = aws_iam_user.student.name
+resource "aws_iam_group_policy_attachment" "ec2_read" {
+  group       = aws_iam_group.students.name
   policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ReadOnlyAccess"
 }
 
-resource "aws_iam_user_policy_attachment" "efs" {
-  user       = aws_iam_user.student.name
+resource "aws_iam_group_policy_attachment" "efs" {
+  group       = aws_iam_group.students.name
   policy_arn = "arn:aws:iam::aws:policy/AmazonElasticFileSystemReadOnlyAccess"
 }
