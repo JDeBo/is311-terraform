@@ -59,7 +59,7 @@ sudo systemctl enable mariadb
 sudo systemctl start mariadb
 EOF
   tags = {
-    Name = var.name
+    Name = "is311-networking-mysql-server"
   }
 }
 
