@@ -31,4 +31,12 @@ resource "aws_security_group" "this" {
     Name = "is311-networking-${var.student_id}"
     Owner = var.student_id
   }
+
+  lifecycle {
+    ignore_changes = [
+      ingress,
+      egress
+    ]
+  }
+
 }
