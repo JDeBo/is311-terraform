@@ -13,12 +13,21 @@ module "subnets" {
   networks = [for x in keys(var.students) : {"name" = x, "new_bits" = 10}]
 }
 
+resource "aws_internet_gateway" "this" {
+  vpc_id = aws_vpc.networking_lab.id
+
+  tags = {
+    Name = "Main Lab Internet Gateway"
+  }
+}
+
 resource "aws_vpc_endpoint" "ssm" {
   vpc_id       = aws_vpc.networking_lab.id
   service_name = "com.amazonaws.us-east-2.ssm"
   vpc_endpoint_type = "Interface"
 
   security_group_ids = [for x in values(module.students) : x.security_group_id]
+  subnet_ids = [aws_subnet.this.id]
 }
 
 resource "aws_vpc_endpoint" "ec2messages" {
@@ -26,6 +35,7 @@ resource "aws_vpc_endpoint" "ec2messages" {
   service_name = "com.amazonaws.us-east-2.ec2messages"
   vpc_endpoint_type = "Interface"
   security_group_ids = [for x in values(module.students) : x.security_group_id]
+  subnet_ids = [aws_subnet.this.id]
 }
 
 resource "aws_vpc_endpoint" "ssmmessages" {
@@ -33,4 +43,5 @@ resource "aws_vpc_endpoint" "ssmmessages" {
   service_name = "com.amazonaws.us-east-2.ssmmessages"
   vpc_endpoint_type = "Interface"
   security_group_ids = [for x in values(module.students) : x.security_group_id]
+  subnet_ids = [aws_subnet.this.id]
 }
