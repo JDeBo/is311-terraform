@@ -56,6 +56,7 @@ module "ec2" {
   name = "is311-networking-public-instance"
   subnet_id = aws_subnet.this.id
   vpc_security_group_list = [aws_security_group.this.id]
+  instance_profile = aws_iam_instance_profile.this.id
 }
 
 resource "aws_security_group" "this" {
