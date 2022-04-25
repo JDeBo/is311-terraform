@@ -1,7 +1,7 @@
 resource "aws_subnet" "this" {
-  vpc_id            = var.vpc_id
-  cidr_block        = var.subnet_cidr
-  availability_zone = "us-east-2a"
+  vpc_id                  = var.vpc_id
+  cidr_block              = var.subnet_cidr
+  availability_zone       = "us-east-2a"
   map_public_ip_on_launch = true
 
   tags = {
@@ -17,6 +17,10 @@ resource "aws_route_table" "this" {
   tags = {
     Name  = "is311-networking-${var.student_id}"
     Owner = var.student_id
+  }
+
+  lifecycle = { 
+    ignore_changes = [route]
   }
 }
 

@@ -19,6 +19,14 @@ resource "aws_security_group" "this" {
     cidr_blocks = [var.vpc_cidr]
   }
 
+  egress {
+    description = "HTTPS from VPC"
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = [var.vpc_cidr]
+  }
+
   tags = {
     Name = "is311-networking-${var.student_id}"
     Owner = var.student_id
