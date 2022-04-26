@@ -54,9 +54,8 @@ resource "aws_instance" "lab" {
   iam_instance_profile   = aws_iam_instance_profile.this.id
   user_data              = <<EOF
 #!/bin/bash
-sudo yum install mariadb-server
+sudo yum install mariadb-server -y
 sudo systemctl enable mariadb
-sudo systemctl start mariadb
 
 echo "[mysqld]
 datadir=/var/lib/mysql
@@ -69,6 +68,9 @@ log-error=/var/log/mariadb/mariadb.log
 pid-file=/var/run/mariadb/mariadb.pid
 
 \!includedir /etc/my.cnf.d" | sudo tee /etc/my.cnf > /dev/null
+
+sudo systemctl start mariadb
+mysql -u root -e "CREATE USER 'student'@'%' IDENTIFIED BY 'password';"
 
 EOF
 
