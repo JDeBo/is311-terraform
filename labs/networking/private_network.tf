@@ -33,7 +33,7 @@ resource "aws_route_table" "this" {
 
   route {
     cidr_block = "0.0.0.0/0" #AWS EC2_INSTANCE_CONNECT for us-east-2 check https://ip-ranges.amazonaws.com/ip-ranges.json for other regions
-    nat_gateway_id = aws_nat_gateway.this.id
+    gateway_id = aws_internet_gateway.this.id
   }
 
   tags = {
@@ -87,6 +87,7 @@ pid-file=/var/run/mariadb/mariadb.pid
 
 sudo systemctl start mariadb
 mysql -u root -e "CREATE USER 'student'@'%' IDENTIFIED BY 'password';"
+echo "success"
 EOF
 
   user_data_replace_on_change = true
@@ -109,7 +110,7 @@ resource "aws_security_group" "this" {
   }
 
   egress {
-    description = "Http to Anywhere"
+    description = "Https to Anywhere"
     from_port   = 443
     to_port     = 443
     protocol    = "tcp"
