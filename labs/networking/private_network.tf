@@ -87,7 +87,6 @@ pid-file=/var/run/mariadb/mariadb.pid
 
 sudo systemctl start mariadb
 mysql -u root -e "CREATE USER 'student'@'%' IDENTIFIED BY 'password';"
-echo "success"
 EOF
 
   user_data_replace_on_change = true
@@ -107,6 +106,14 @@ resource "aws_security_group" "this" {
     to_port     = 3306
     protocol    = "tcp"
     cidr_blocks = [aws_vpc.networking_lab.cidr_block]
+  }
+
+  egress {
+    description = "Http to Anywhere"
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = 0.0.0.0/0
   }
   
   tags = {
