@@ -2,13 +2,13 @@ data "aws_iam_policy_document" "vpc" {
   statement {
 
     actions = [
-      "ec2:*Subnet*",
-      "ec2:*RouteTable*",
+      "ec2:*",
     ]
 
     resources = [
       "arn:aws:ec2:${data.aws_region.current.id}:${data.aws_caller_identity.current.account_id}:subnet/*",
       "arn:aws:ec2:${data.aws_region.current.id}:${data.aws_caller_identity.current.account_id}:route-table/*",
+      "arn:aws:ec2:${data.aws_region.current.id}:${data.aws_caller_identity.current.account_id}:security-group*/*",
     ]
 
     condition {
