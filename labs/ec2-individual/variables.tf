@@ -15,3 +15,7 @@ variable "rsa_public_key" {
 variable "vpc_id" {
   description = "The VPC ID for security group to connect to"
 }
+
+variable "public_key" {
+  description = "Public Key for ssh into EC2's"
+}
