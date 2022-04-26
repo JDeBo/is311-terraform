@@ -12,12 +12,28 @@ resource "aws_subnet" "this" {
   depends_on = [module.students]
 }
 
+resource "aws_eip" "this" {}
+
+
+resource "aws_nat_gateway" "this" {
+  allocation_id = aws_eip.this.id
+  subnet_id     = aws_subnet.this.id
+
+  tags = {
+    Name = "Lab NAT GW"
+  }
+
+  # To ensure proper ordering, it is recommended to add an explicit dependency
+  # on the Internet Gateway for the VPC.
+  depends_on = [aws_internet_gateway.this]
+}
+
 resource "aws_route_table" "this" {
   vpc_id = aws_vpc.networking_lab.id
 
   route {
-    cidr_block = "3.16.146.0/29" #AWS EC2_INSTANCE_CONNECT for us-east-2 check https://ip-ranges.amazonaws.com/ip-ranges.json for other regions
-    gateway_id = aws_internet_gateway.this.id
+    cidr_block = "0.0.0.0/0" #AWS EC2_INSTANCE_CONNECT for us-east-2 check https://ip-ranges.amazonaws.com/ip-ranges.json for other regions
+    nat_gateway_id = aws_nat_gateway.this.id
   }
 
   tags = {
@@ -71,7 +87,6 @@ pid-file=/var/run/mariadb/mariadb.pid
 
 sudo systemctl start mariadb
 mysql -u root -e "CREATE USER 'student'@'%' IDENTIFIED BY 'password';"
-echo "Success"
 
 EOF
 
