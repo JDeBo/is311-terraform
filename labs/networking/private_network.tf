@@ -87,7 +87,7 @@ pid-file=/var/run/mariadb/mariadb.pid
 
 sudo systemctl start mariadb
 mysql -u root -e "CREATE USER 'student'@'%' IDENTIFIED BY 'password';"
-
+echo "success"
 EOF
 
   user_data_replace_on_change = true
