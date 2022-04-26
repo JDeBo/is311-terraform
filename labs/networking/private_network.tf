@@ -94,4 +94,8 @@ resource "aws_security_group" "this" {
   tags = {
     Name = "is311-networking-private-instance"
   }
+
+  lifecycle {
+    create_before_destroy = true
+  }
 }
