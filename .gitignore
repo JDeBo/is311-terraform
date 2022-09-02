@@ -31,5 +31,3 @@ override.tf.json
 *.lock.hcl
 *.json
 *.zip
-
-resources/sample-python*

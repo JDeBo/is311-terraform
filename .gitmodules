@@ -1,0 +1,3 @@
+[submodule "resources/s3-sample-site"]
+	path = resources/s3-sample-site
+	url = git@github.com:JDeBo/sample-static-site.git
