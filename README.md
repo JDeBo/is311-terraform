@@ -5,7 +5,7 @@ This is a Terraform repository for an introductory IT Infrastructure class. It c
 ## Setup
 
 ```bash
-git clone git@github.com:JDeBo/is311-terraform.git
+git clone git@github.com:JDeBo/is311-terraform.git [--recurse-submodules]
 ```
 
 Students will need to create accounts at [keybase.io](https://keybase.io) in order to have their IAM users generated
