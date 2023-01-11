@@ -1,12 +1,13 @@
-variable "student_name" {
-  description = "name of student to create user for. eg. Bob Smith"
+variable "first_name" {
+  description = "First name of student to create user for. eg. Bob"
   type        = string
 }
 
-variable "student_resource_id" {
-  description = "Resource friendly version of student name. eg. bob-smith"
+variable "last_name" {
+  description = "Last name of student to create user for.. eg. Smith"
+  type        = string
 }
 
-variable "keybase_id" {
-  description = "ID for a Keybase user"
+variable "email" {
+  description = "Email for "
 }

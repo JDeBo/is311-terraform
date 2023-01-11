@@ -9,7 +9,7 @@ data "aws_iam_policy_document" "s3" {
       "arn:aws:s3:::*${var.student_resource_id}*",
     ]
   }
-    statement {
+  statement {
     sid = "globalList"
 
     actions = [

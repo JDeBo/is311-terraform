@@ -1,5 +1,5 @@
 students = { "cookie-monster" = {
-  "name"       = "Cookie Monster"
+  "first_name" = "Cookie Monster"
+  "last_name"  = "Cookie Monster"
   "email"      = "cookie.monster@monsters.edu"
-  "keybase_id" = "cmonster"
 } }

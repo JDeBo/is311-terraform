@@ -9,9 +9,9 @@ resource "aws_iam_access_key" "teacher" {
 }
 
 resource "aws_iam_user_login_profile" "teacher" {
-  user    = aws_iam_user.teacher.name
-  pgp_key = "keybase:${var.keybase_id}"
-  password_length = 8
+  user                    = aws_iam_user.teacher.name
+  pgp_key                 = "keybase:${var.keybase_id}"
+  password_length         = 8
   password_reset_required = true
   lifecycle {
     ignore_changes = [

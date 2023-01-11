@@ -1,22 +1,16 @@
-resource "aws_iam_user" "student" {
-  name          = var.student_resource_id
-  force_destroy = true
-}
+resource "aws_identitystore_user" "student" {
+  identity_store_id = var.identity_store_id
 
-resource "aws_iam_access_key" "student" {
-  user    = aws_iam_user.student.name
-  # pgp_key = "keybase:${var.keybase_id}"
-}
+  display_name = "${var.first_name} ${var.last_name}"
+  user_name    = var.email
 
-resource "aws_iam_user_login_profile" "student" {
-  user    = aws_iam_user.student.name
-  # pgp_key = "keybase:${var.keybase_id}"
-  password_length = 8
-  password_reset_required = true
-  lifecycle {
-    ignore_changes = [
-      password_length,
-    ]
+  name {
+    given_name  = var.first_name
+    family_name = var.last_name
+  }
+
+  emails {
+    value = var.email
   }
 }
 

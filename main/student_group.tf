@@ -14,11 +14,11 @@ resource "aws_iam_group_policy_attachment" "elb" {
 }
 
 resource "aws_iam_group_policy_attachment" "ec2_read" {
-  group       = aws_iam_group.students.name
+  group      = aws_iam_group.students.name
   policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ReadOnlyAccess"
 }
 
 resource "aws_iam_group_policy_attachment" "efs" {
-  group       = aws_iam_group.students.name
+  group      = aws_iam_group.students.name
   policy_arn = "arn:aws:iam::aws:policy/AmazonElasticFileSystemReadOnlyAccess"
 }

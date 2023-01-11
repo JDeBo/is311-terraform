@@ -25,8 +25,8 @@ resource "aws_efs_file_system" "this" {
 }
 
 resource "aws_efs_mount_target" "this" {
-  file_system_id = aws_efs_file_system.this.id
-  subnet_id      = aws_default_subnet.default_use2c.id
+  file_system_id  = aws_efs_file_system.this.id
+  subnet_id       = aws_default_subnet.default_use2c.id
   security_groups = [aws_security_group.allow_nfs.id]
 }
 

@@ -28,7 +28,7 @@ resource "aws_security_group" "this" {
   }
 
   tags = {
-    Name = "is311-networking-${var.student_id}"
+    Name  = "is311-networking-${var.student_id}"
     Owner = var.student_id
   }
 

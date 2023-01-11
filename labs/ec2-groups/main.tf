@@ -28,14 +28,14 @@ data "aws_ami" "linux_2" {
 }
 
 resource "aws_instance" "lab" {
-  count         = var.instance_count
-  ami           = data.aws_ami.linux_2.id
-  instance_type = "t2.micro"
-  key_name      = aws_key_pair.key_pair.id
+  count                  = var.instance_count
+  ami                    = data.aws_ami.linux_2.id
+  instance_type          = "t2.micro"
+  key_name               = aws_key_pair.key_pair.id
   vpc_security_group_ids = [aws_security_group.group_ec2.id]
 
   tags = {
-    Name = "Group-${count.index+1}"
+    Name = "Group-${count.index + 1}"
   }
 
   depends_on = [

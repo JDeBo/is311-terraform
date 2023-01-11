@@ -10,11 +10,11 @@ data "aws_iam_policy_document" "workspace" {
   }
 
   statement {
-    sid = "denyCreate"
+    sid    = "denyCreate"
     effect = "Deny"
-    actions = [ 
-    "workspaces:Create*", 
-    "ds:Create*",
+    actions = [
+      "workspaces:Create*",
+      "ds:Create*",
     ]
     resources = ["*"]
   }

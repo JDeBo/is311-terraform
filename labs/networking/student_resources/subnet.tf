@@ -19,7 +19,7 @@ resource "aws_route_table" "this" {
     Owner = var.student_id
   }
 
-  lifecycle { 
+  lifecycle {
     ignore_changes = [route]
   }
 }

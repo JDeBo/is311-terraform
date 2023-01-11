@@ -12,14 +12,14 @@ provider "aws" {
 }
 
 resource "aws_iam_user_policy_attachment" "polly" {
-  for_each = var.students
+  for_each   = var.students
   user       = each.key
   policy_arn = aws_iam_policy.polly.arn
 }
 
 resource "aws_iam_user_policy_attachment" "transcribe" {
-  for_each = var.students
-  user       = each.key  
+  for_each   = var.students
+  user       = each.key
   policy_arn = aws_iam_policy.transcribe.arn
 }
 

@@ -1,9 +1,9 @@
 
 
 resource "aws_subnet" "this" {
-  vpc_id            = aws_vpc.networking_lab.id
-  cidr_block        = "172.32.12.0/24"
-  availability_zone = "us-east-2a"
+  vpc_id                  = aws_vpc.networking_lab.id
+  cidr_block              = "172.32.12.0/24"
+  availability_zone       = "us-east-2a"
   map_public_ip_on_launch = true
 
   tags = {
@@ -73,7 +73,7 @@ resource "aws_security_group" "this" {
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
-  
+
   tags = {
     Name = "is311-networking-private-instance"
   }
