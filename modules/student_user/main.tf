@@ -37,9 +37,13 @@ data "aws_iam_policy_document" "user" {
 # }
 
 # resource "aws_iam_user_policy_attachment" "user" {
-#   user       = aws_iam_user.student.name
+#   user       = local.student_name
 #   policy_arn = aws_iam_policy.user.arn
 # }
 
 data "aws_caller_identity" "current" {}
 data "aws_region" "current" {}
+
+locals {
+  student_name = "${var.first_name} ${var.last_name}"
+}

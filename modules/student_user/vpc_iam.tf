@@ -28,6 +28,6 @@ resource "aws_iam_policy" "vpc" {
 }
 
 resource "aws_iam_user_policy_attachment" "vpc" {
-  user       = aws_iam_user.student.name
+  user       = local.student_name
   policy_arn = aws_iam_policy.vpc.arn
 }

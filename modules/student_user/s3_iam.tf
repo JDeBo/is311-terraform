@@ -35,6 +35,6 @@ resource "aws_iam_policy" "s3" {
 }
 
 resource "aws_iam_user_policy_attachment" "s3" {
-  user       = aws_iam_user.student.name
+  user       = local.student_name
   policy_arn = aws_iam_policy.s3.arn
 }

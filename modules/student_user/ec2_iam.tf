@@ -36,6 +36,6 @@ resource "aws_iam_policy" "ec2" {
 }
 
 resource "aws_iam_user_policy_attachment" "ec2" {
-  user       = aws_iam_user.student.name
+  user       = local.student_name
   policy_arn = aws_iam_policy.ec2.arn
 }
