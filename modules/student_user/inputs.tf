@@ -11,3 +11,7 @@ variable "last_name" {
 variable "email" {
   description = "Email for "
 }
+
+variable "identity_store_id" {
+  description = "ID for the SSO identity store of the account"
+}
