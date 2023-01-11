@@ -14,7 +14,7 @@ data "aws_iam_policy_document" "iam_access_analyzer" {
 }
 
 resource "aws_iam_policy" "iam_access_analyzer" {
-  name   = "IAMAccessAnalyzerStudent${var.student_resource_id}"
+  name   = "IAMAccessAnalyzerStudent${var.email}"
   path   = "/"
   policy = data.aws_iam_policy_document.iam_access_analyzer.json
 }

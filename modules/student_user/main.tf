@@ -24,22 +24,22 @@ data "aws_iam_policy_document" "user" {
     ]
 
     resources = [
-      "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/${var.student_resource_id}",
+      "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/${var.email}",
     ]
   }
 
 }
 
-resource "aws_iam_policy" "user" {
-  name   = "UserAccessStudent${var.student_resource_id}"
-  path   = "/"
-  policy = data.aws_iam_policy_document.user.json
-}
+# resource "aws_iam_policy" "user" {
+#   name   = "UserAccessStudent${var.email}"
+#   path   = "/"
+#   policy = data.aws_iam_policy_document.user.json
+# }
 
-resource "aws_iam_user_policy_attachment" "user" {
-  user       = aws_iam_user.student.name
-  policy_arn = aws_iam_policy.user.arn
-}
+# resource "aws_iam_user_policy_attachment" "user" {
+#   user       = aws_iam_user.student.name
+#   policy_arn = aws_iam_policy.user.arn
+# }
 
 data "aws_caller_identity" "current" {}
 data "aws_region" "current" {}

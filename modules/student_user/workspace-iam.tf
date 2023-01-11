@@ -21,7 +21,7 @@ data "aws_iam_policy_document" "workspace" {
 }
 
 resource "aws_iam_policy" "workspace" {
-  name   = "WorkspaceAccessStudent${var.student_resource_id}"
+  name   = "WorkspaceAccessStudent${var.email}"
   path   = "/"
   policy = data.aws_iam_policy_document.workspace.json
 }

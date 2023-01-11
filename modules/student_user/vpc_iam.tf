@@ -15,14 +15,14 @@ data "aws_iam_policy_document" "vpc" {
       test     = "StringLike"
       variable = "aws:ResourceTag/Name"
       values = [
-        "*${var.student_resource_id}",
+        "*${var.email}",
       ]
     }
   }
 }
 
 resource "aws_iam_policy" "vpc" {
-  name   = "vpcAccessStudent${var.student_resource_id}"
+  name   = "vpcAccessStudent${var.email}"
   path   = "/"
   policy = data.aws_iam_policy_document.vpc.json
 }
