@@ -1,4 +1,4 @@
-resource "aws_identitystore_user" "student" {
+resource "aws_identitystore_user" "this" {
   identity_store_id = var.identity_store_id
 
   display_name = "${var.first_name} ${var.last_name}"
@@ -29,6 +29,12 @@ data "aws_iam_policy_document" "user" {
   }
 
 }
+
+# resource "aws_identitystore_group_membership" "this" {
+#   identity_store_id = var.identity_store_id
+#   group_id          = var.group_id
+#   member_id         = aws_identitystore_user.example.user_id
+# }
 
 # resource "aws_iam_policy" "user" {
 #   name   = "UserAccessStudent${var.email}"
