@@ -1,22 +1,51 @@
-resource "aws_identitystore_user" "this" {
-  identity_store_id = var.identity_store_id
+resource "aws_iam_user" "student" {
+  name          = var.student_resource_id
+  force_destroy = true
+}
 
-  display_name = "${var.first_name} ${var.last_name}"
-  user_name    = var.email
+resource "aws_iam_access_key" "student" {
+  user    = aws_iam_user.student.name
+  # pgp_key = "keybase:${var.keybase_id}"
+}
 
-  name {
-    given_name  = var.first_name
-    family_name = var.last_name
+resource "aws_iam_user_login_profile" "student" {
+  user    = aws_iam_user.student.name
+  # pgp_key = "keybase:${var.keybase_id}"
+  password_length = 8
+  password_reset_required = true
+  lifecycle {
+    ignore_changes = [
+      password_length,
+    ]
+  }
+}
+
+data "aws_iam_policy_document" "user" {
+
+  statement {
+
+    actions = [
+      "iam:ChangePassword",
+      "iam:GetAccountPasswordPolicy",
+    ]
+
+    resources = [
+      "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/${var.student_resource_id}",
+    ]
   }
 
-  emails {
-    value = var.email
-  }
+}
+
+resource "aws_iam_policy" "user" {
+  name   = "UserAccessStudent${var.student_resource_id}"
+  path   = "/"
+  policy = data.aws_iam_policy_document.user.json
+}
+
+resource "aws_iam_user_policy_attachment" "user" {
+  user       = aws_iam_user.student.name
+  policy_arn = aws_iam_policy.user.arn
 }
 
 data "aws_caller_identity" "current" {}
 data "aws_region" "current" {}
-
-locals {
-  student_name = "${var.first_name} ${var.last_name}"
-}

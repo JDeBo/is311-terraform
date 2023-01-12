@@ -6,7 +6,7 @@ data "aws_iam_policy_document" "s3" {
     ]
 
     resources = [
-      "arn:aws:s3:::*${var.email}*",
+      "arn:aws:s3:::*${var.student_resource_id}*",
     ]
   }
   statement {
@@ -29,12 +29,12 @@ data "aws_iam_policy_document" "s3" {
 }
 
 resource "aws_iam_policy" "s3" {
-  name   = "S3AccessStudent${var.email}"
+  name   = "S3AccessStudent${var.student_resource_id}"
   path   = "/"
   policy = data.aws_iam_policy_document.s3.json
 }
 
 resource "aws_iam_user_policy_attachment" "s3" {
-  user       = local.student_name
+  user       = aws_iam_user.student.name
   policy_arn = aws_iam_policy.s3.arn
 }

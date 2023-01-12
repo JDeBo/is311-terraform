@@ -15,7 +15,7 @@ data "aws_iam_policy_document" "ec2" {
       variable = "aws:ResourceTag/Name"
       values = [
         "Group*",
-        "*${var.email}",
+        "*${var.student_resource_id}",
       ]
     }
   }
@@ -30,12 +30,12 @@ data "aws_iam_policy_document" "ec2" {
 }
 
 resource "aws_iam_policy" "ec2" {
-  name   = "EC2AccessStudent${var.email}"
+  name   = "EC2AccessStudent${var.student_resource_id}"
   path   = "/"
   policy = data.aws_iam_policy_document.ec2.json
 }
 
 resource "aws_iam_user_policy_attachment" "ec2" {
-  user       = local.student_name
+  user       = aws_iam_user.student.name
   policy_arn = aws_iam_policy.ec2.arn
 }

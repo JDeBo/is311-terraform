@@ -15,19 +15,19 @@ data "aws_iam_policy_document" "vpc" {
       test     = "StringLike"
       variable = "aws:ResourceTag/Name"
       values = [
-        "*${var.email}",
+        "*${var.student_resource_id}",
       ]
     }
   }
 }
 
 resource "aws_iam_policy" "vpc" {
-  name   = "vpcAccessStudent${var.email}"
+  name   = "vpcAccessStudent${var.student_resource_id}"
   path   = "/"
   policy = data.aws_iam_policy_document.vpc.json
 }
 
 resource "aws_iam_user_policy_attachment" "vpc" {
-  user       = local.student_name
+  user       = aws_iam_user.student.name
   policy_arn = aws_iam_policy.vpc.arn
 }

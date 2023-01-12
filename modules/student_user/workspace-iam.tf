@@ -21,12 +21,12 @@ data "aws_iam_policy_document" "workspace" {
 }
 
 resource "aws_iam_policy" "workspace" {
-  name   = "WorkspaceAccessStudent${var.email}"
+  name   = "WorkspaceAccessStudent${var.student_resource_id}"
   path   = "/"
   policy = data.aws_iam_policy_document.workspace.json
 }
 
 resource "aws_iam_user_policy_attachment" "workspace" {
-  user       = local.student_name
+  user       = aws_iam_user.student.name
   policy_arn = aws_iam_policy.workspace.arn
 }
