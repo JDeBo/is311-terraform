@@ -48,7 +48,7 @@ resource "aws_ssoadmin_account_assignment" "students" {
 }
 
 resource "aws_ssoadmin_permission_set" "students" {
-  name             = "IS311 Students"
+  name             = "is311-students"
   description      = "Permission set for students"
   instance_arn     = local.sso_instance_arn
   relay_state      = "https://us-east-2.console.aws.amazon.com/console/home?region=us-east-2"
