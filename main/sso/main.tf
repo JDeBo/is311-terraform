@@ -37,9 +37,9 @@ resource "aws_identitystore_group" "students" {
 
 resource "aws_ssoadmin_account_assignment" "students" {
   instance_arn       = local.sso_instance_arn
-  permission_set_arn = data.aws_ssoadmin_permission_set.students.arn
+  permission_set_arn = aws_ssoadmin_permission_set.students.arn
 
-  principal_id   = data.aws_identitystore_group.students.group_id
+  principal_id   = aws_identitystore_group.students.group_id
   principal_type = "GROUP"
 
   target_id   = var.target_account_id

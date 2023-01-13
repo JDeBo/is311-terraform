@@ -17,3 +17,8 @@ variable "target_account_id" {
     error_message = "The Target Account ID value must be a valid 12 digit account ID"
   }
 }
+
+variable "region" {
+  description = "Region for IAM permissions"
+  default     = "us-east-2"
+}
