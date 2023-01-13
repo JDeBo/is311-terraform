@@ -14,8 +14,8 @@ provider "aws" {
 data "aws_ssoadmin_instances" "this" {}
 
 locals {
-  sso_instance_id = tolist(data.aws_ssoadmin_instances.this.ids)[0]
-  sso_instance_arn = tolist(data.aws_ssoadmin_instances.this.arns)[0]
+  sso_instance_id = tolist(data.aws_ssoadmin_instances.this.id)[0]
+  sso_instance_arn = tolist(data.aws_ssoadmin_instances.this.arn)[0]
 }
 
 # In order for students to be able to set that password on login, set OTP on signin
