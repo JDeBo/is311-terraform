@@ -7,7 +7,7 @@ data "aws_iam_policy_document" "ec2" {
     ]
 
     resources = [
-      "arn:aws:ec2:${var.region}:${var.target_account_id}:instance/*",
+      "arn:aws:ec2:*:*:instance/*",
     ]
 
     condition {
