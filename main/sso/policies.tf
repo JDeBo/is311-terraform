@@ -30,7 +30,7 @@ data "aws_iam_policy_document" "ec2" {
 }
 
 resource "aws_iam_policy" "ec2" {
-  name   = "EC2AccessStudent${var.student_resource_id}"
+  name   = "IS311EC2AccessStudent"
   path   = "/"
   policy = data.aws_iam_policy_document.ec2.json
 }
