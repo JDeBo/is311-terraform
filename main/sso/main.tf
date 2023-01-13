@@ -14,7 +14,7 @@ provider "aws" {
 data "aws_ssoadmin_instances" "this" {}
 
 locals {
-  sso_instance_id = tolist(data.aws_ssoadmin_instances.this.id)[0]
+  sso_instance_identitystore_id = tolist(data.aws_ssoadmin_instances.this.identity_store_ids)[0]
   sso_instance_arn = tolist(data.aws_ssoadmin_instances.this.arns)[0]
 }
 
@@ -27,11 +27,11 @@ module "student_iam" {
   first_name        = each.value.first_name
   last_name         = each.value.last_name
   email             = each.value.email
-  identity_store_id = local.sso_instance_id
+  identity_store_id = local.sso_instance_identitystore_id
 }
 
 resource "aws_identitystore_group" "students" {
-  identity_store_id = local.sso_instance_id
+  identity_store_id = local.sso_instance_identitystore_id
   display_name      = "IS311-Students"
   description       = "Student Group for IS311"
 }
