@@ -14,20 +14,10 @@ resource "aws_identitystore_user" "this" {
   }
 }
 
-data "aws_iam_policy_document" "user" {
-
-  statement {
-
-    actions = [
-      "iam:ChangePassword",
-      "iam:GetAccountPasswordPolicy",
-    ]
-
-    resources = [
-      "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/${var.email}",
-    ]
-  }
-
+resource "aws_identitystore_group_membership" "this" {
+  identity_store_id = tolist(data.aws_ssoadmin_instances.example.identity_store_ids)[0]
+  group_id          = var.identity_store_group_id
+  member_id         = aws_identitystore_user.this.user_id
 }
 
 # resource "aws_identitystore_group_membership" "this" {

@@ -34,3 +34,19 @@ resource "aws_ssoadmin_permission_set_inline_policy" "ec2" {
   instance_arn       = local.sso_instance_arn
   permission_set_arn = aws_ssoadmin_permission_set.students.arn
 }
+
+resource "aws_iam_policy" "students" {
+  name        = "StudentMainPolicy"
+  path        = "/"
+  description = "Main policy for student users"
+  policy = data.aws_iam_policy_document.ec2.json
+}
+
+resource "aws_ssoadmin_customer_managed_policy_attachment" "example" {
+  instance_arn       = aws_ssoadmin_permission_set.students.instance_arn
+  permission_set_arn = aws_ssoadmin_permission_set.students.arn
+  customer_managed_policy_reference {
+    name = aws_iam_policy.students.name
+    path = "/"
+  }
+}

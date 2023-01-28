@@ -15,7 +15,7 @@ data "aws_ssoadmin_instances" "this" {}
 
 locals {
   sso_instance_identitystore_id = tolist(data.aws_ssoadmin_instances.this.identity_store_ids)[0]
-  sso_instance_arn = tolist(data.aws_ssoadmin_instances.this.arns)[0]
+  sso_instance_arn              = tolist(data.aws_ssoadmin_instances.this.arns)[0]
 }
 
 # In order for students to be able to set that password on login, set OTP on signin
@@ -23,11 +23,12 @@ locals {
 module "student_iam" {
   source = "../../modules/student_sso_user"
 
-  for_each          = var.students
-  first_name        = each.value.first_name
-  last_name         = each.value.last_name
-  email             = each.value.email
-  identity_store_id = local.sso_instance_identitystore_id
+  for_each                = var.students
+  first_name              = each.value.first_name
+  last_name               = each.value.last_name
+  email                   = each.value.email
+  identity_store_id       = local.sso_instance_identitystore_id
+  identity_store_group_id = aws_identitystore_group.students.group_id
 }
 
 resource "aws_identitystore_group" "students" {
