@@ -19,7 +19,7 @@ data "aws_iam_roles" "sso" {
 data "aws_vpc" "controltower" {
   filter {
     name   = "tag:Name"
-    values = "*controltower*" #replace if you aren't using control tower
+    values = ["*controltower*"] #replace if you aren't using control tower
   }
 }
 
@@ -59,7 +59,7 @@ module "instances" {
   for_each                = var.students
   instance_type           = "t3.nano"
   vpc_security_group_list = [aws_security_group.allow_ssh.id]
-  aws_userid              = "${data.aws_iam_roles.sso[0].unique_id}:${each.value.email}"
+  aws_userid              = "${data.aws_iam_roles.sso.unique_id}:${each.value.email}"
 }
 
 resource "aws_key_pair" "key_pair" {

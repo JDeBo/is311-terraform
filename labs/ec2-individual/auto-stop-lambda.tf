@@ -54,7 +54,7 @@ resource "aws_lambda_function" "auto_stopper" {
 
   environment {
     variables = {
-      EC2_INSTANCES = jsonencode({ for k, v in aws_instance.lab : k => v.id })
+      EC2_INSTANCES = jsonencode({ for k, v in module.instances : k => v.instance_id })
     }
   }
   depends_on = [
