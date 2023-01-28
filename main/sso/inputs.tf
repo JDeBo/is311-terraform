@@ -14,7 +14,7 @@ variable "target_account_id" {
 
   validation {
     condition     = length(var.target_account_id) == 12
-    error_message = "The Target Account ID value must be a valid 12 digit account ID"
+    error_message = "The Target Account ID value must be a valid 12 digit account ID."
   }
 }
 
