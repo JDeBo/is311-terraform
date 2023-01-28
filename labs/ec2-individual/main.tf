@@ -11,36 +11,56 @@ provider "aws" {
   region = "us-east-2"
 }
 
-data "aws_ami" "linux_2" {
-  most_recent = true
-
-  filter {
-    name   = "name"
-    values = ["amzn2-ami-kernel-5.10-hvm-2*-x86_64-gp2"]
-  }
-
-  filter {
-    name   = "virtualization-type"
-    values = ["hvm"]
-  }
-
-  owners = ["137112412989"] # AWS
+data "aws_iam_roles" "sso" {
+  name_regex  = ".*student.*"
+  path_prefix = "/aws-reserved/sso.amazonaws.com/"
 }
 
-resource "aws_instance" "lab" {
-  for_each               = var.students
-  ami                    = data.aws_ami.linux_2.id
-  instance_type          = "t3.nano"
-  key_name               = aws_key_pair.key_pair.id
-  vpc_security_group_ids = [aws_security_group.allow_ssh.id]
-
-  tags = {
-    Name = "is311-${each.key}"
+data "aws_vpc" "controltower" {
+  filter {
+    name   = "tag:Name"
+    values = "*controltower*" #replace if you aren't using control tower
   }
+}
 
-  depends_on = [
-    aws_security_group.allow_ssh
-  ]
+# data "aws_ami" "linux_2" {
+#   most_recent = true
+
+#   filter {
+#     name   = "name"
+#     values = ["amzn2-ami-kernel-5.10-hvm-2*-x86_64-gp2"]
+#   }
+
+#   filter {
+#     name   = "virtualization-type"
+#     values = ["hvm"]
+#   }
+
+#   owners = ["137112412989"] # AWS
+# }
+
+# resource "aws_instance" "lab" {
+#   for_each               = var.students
+#   ami                    = data.aws_ami.linux_2.id
+#   instance_type          = "t3.nano"
+#   key_name               = aws_key_pair.key_pair.id
+#   vpc_security_group_ids = [aws_security_group.allow_ssh.id]
+
+#   tags = {
+#     Name = "is311-${each.key}"
+#   }
+
+#   depends_on = [
+#     aws_security_group.allow_ssh
+#   ]
+# }
+module "instances" {
+  source                  = "${path.module}/../modules/ec2_instance"
+  for_each                = var.students
+  instance_type           = "t3.nano"
+  vpc_security_group_list = [aws_security_group.allow_ssh.id]
+  aws_userid              = "${data.aws_iam_roles.sso[0].unique_id}:${each.value.email}"
+  key_pair_id             = aws_key_pair.key_pair.id
 }
 
 resource "aws_key_pair" "key_pair" {
@@ -51,7 +71,7 @@ resource "aws_key_pair" "key_pair" {
 resource "aws_security_group" "allow_ssh" {
   name        = "allow_ssh"
   description = "Allow SSH inbound traffic"
-  vpc_id      = var.vpc_id
+  vpc_id      = data.aws_vpc.controltower.id
 
   ingress {
     description = "SSH from Anywhere"

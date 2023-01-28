@@ -1,6 +1,6 @@
 variable "subnet_id" {
   description = "The subnet ID to deploy the ec2 instance to"
-  default     = ""
+  default     = null
 }
 
 variable "vpc_security_group_list" {
@@ -14,11 +14,11 @@ variable "instance_type" {
   default     = "t3.nano"
 }
 
-variable "name" {
-  description = "Name of the ec2 instance"
+variable "aws_userid" {
+  description = "For SSO, needs to be an aws username matching the pattern ROLEUNIQUEID:caller-name eg. AROAU6CWOEXAMPLE:example@gmail.com"
 }
 
 variable "instance_profile" {
   description = "Instance profile to attach to EC2 instance"
-  default     = ""
+  default     = null
 }

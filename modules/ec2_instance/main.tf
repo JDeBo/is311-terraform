@@ -1,3 +1,9 @@
+data "aws_iam_roles" "roles" {
+  name_regex  = ".*student.*"
+  path_prefix = "/aws-reserved/sso.amazonaws.com/"
+}
+
+
 data "aws_ami" "linux_2" {
   most_recent = true
 
@@ -20,8 +26,10 @@ resource "aws_instance" "lab" {
   vpc_security_group_ids = var.vpc_security_group_list
   subnet_id              = var.subnet_id
   iam_instance_profile   = var.instance_profile
+  key_name = var.key_pair_id
 
   tags = {
-    Name = var.name
+    Name = var.aws_userid # For SSO, needs to be an aws username matching the pattern
+    # ROLEUNIQUEID:caller-name eg. AROAU6CWOEXAMPLE:example@gmail.com
   }
 }
