@@ -28,7 +28,8 @@ resource "aws_instance" "lab" {
   iam_instance_profile   = var.instance_profile
 
   tags = {
-    Name = var.aws_userid # For SSO, needs to be an aws username matching the pattern
+    Name  = var.instance_name
+    Owner = var.aws_userid # For SSO, needs to be an aws username matching the pattern
     # ROLEUNIQUEID:caller-name eg. AROAU6CWOEXAMPLE:example@gmail.com
   }
 }

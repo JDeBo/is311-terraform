@@ -12,7 +12,7 @@ data "aws_iam_policy_document" "ec2" {
 
     condition {
       test     = "StringLike"
-      variable = "aws:ResourceTag/Name"
+      variable = "aws:ResourceTag/Owner"
       values = [
         "Group*",
         "*&{aws:userid}*",

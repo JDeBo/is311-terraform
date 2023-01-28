@@ -72,6 +72,7 @@ module "instances" {
   vpc_security_group_list = [aws_security_group.allow_ssh.id]
   aws_userid              = "${data.aws_iam_role.sso.unique_id}:${each.value.email}"
   subnet_id               = data.aws_subnet.controltower.id
+  instance_name           = "${each.value.name}-lab-instance"
 }
 
 resource "aws_key_pair" "key_pair" {
