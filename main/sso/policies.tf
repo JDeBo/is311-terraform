@@ -15,16 +15,16 @@ data "aws_iam_policy_document" "ec2" {
       variable = "aws:ResourceTag/Name"
       values = [
         "Group*",
-        "&{aws:userid}",
+        "*&{aws:userid}*",
       ]
     }
   }
 
   statement {
     actions = [
-      "ec2:DescribeInstances"
+      "ec2:DescribeInstances",
+      "cloudshell:*",
     ]
-
     resources = ["*"]
   }
 }
@@ -42,7 +42,7 @@ resource "aws_iam_policy" "students" {
   policy = data.aws_iam_policy_document.ec2.json
 }
 
-resource "aws_ssoadmin_customer_managed_policy_attachment" "example" {
+resource "aws_ssoadmin_customer_managed_policy_attachment" "students" {
   instance_arn       = aws_ssoadmin_permission_set.students.instance_arn
   permission_set_arn = aws_ssoadmin_permission_set.students.arn
   customer_managed_policy_reference {
