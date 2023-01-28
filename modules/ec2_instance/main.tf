@@ -26,7 +26,6 @@ resource "aws_instance" "lab" {
   vpc_security_group_ids = var.vpc_security_group_list
   subnet_id              = var.subnet_id
   iam_instance_profile   = var.instance_profile
-  key_name = var.key_pair_id
 
   tags = {
     Name = var.aws_userid # For SSO, needs to be an aws username matching the pattern

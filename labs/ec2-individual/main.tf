@@ -60,7 +60,6 @@ module "instances" {
   instance_type           = "t3.nano"
   vpc_security_group_list = [aws_security_group.allow_ssh.id]
   aws_userid              = "${data.aws_iam_roles.sso[0].unique_id}:${each.value.email}"
-  key_pair_id             = aws_key_pair.key_pair.id
 }
 
 resource "aws_key_pair" "key_pair" {
