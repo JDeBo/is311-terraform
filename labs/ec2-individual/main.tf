@@ -17,7 +17,7 @@ data "aws_iam_roles" "sso" {
 }
 
 data "aws_iam_role" "sso" {
-  name = data.aws_iam_roles.sso.names[0]
+  name = tolist(data.aws_iam_roles.sso.names)[0]
 }
 
 data "aws_vpc" "controltower" {
