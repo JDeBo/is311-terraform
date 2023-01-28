@@ -55,7 +55,7 @@ data "aws_vpc" "controltower" {
 #   ]
 # }
 module "instances" {
-  source                  = "../modules/ec2_instance"
+  source                  = "../../modules/ec2_instance"
   for_each                = var.students
   instance_type           = "t3.nano"
   vpc_security_group_list = [aws_security_group.allow_ssh.id]
