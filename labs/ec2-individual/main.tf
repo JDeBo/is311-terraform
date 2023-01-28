@@ -27,6 +27,13 @@ data "aws_vpc" "controltower" {
   }
 }
 
+data "aws_subnet" "controltower" {
+  filter {
+    name   = "tag:Name"
+    values = ["*PrivateSubnet1A"]
+  }
+}
+
 # data "aws_ami" "linux_2" {
 #   most_recent = true
 
@@ -64,6 +71,7 @@ module "instances" {
   instance_type           = "t3.nano"
   vpc_security_group_list = [aws_security_group.allow_ssh.id]
   aws_userid              = "${data.aws_iam_role.sso.unique_id}:${each.value.email}"
+  subnet_id               = data.aws_subnet.controltower.id
 }
 
 resource "aws_key_pair" "key_pair" {
