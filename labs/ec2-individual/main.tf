@@ -28,7 +28,10 @@ data "aws_vpc" "controltower" {
 }
 
 data "aws_subnet" "controltower" {
-  id = "subnet-085c55a8d3158050b"
+  filter {
+    name   = "tag:Name"
+    values = ["*Private*1*"] # update for you subnets
+  }
 }
 
 # data "aws_ami" "linux_2" {

@@ -1,2 +1,0 @@
-rsa_public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC1ka1X1GmvNCVUlJy4PV6jt7lfWGNh0C/XO/X9jOqP0yPBTvr8rYpz30FSQ1G+NkFFl5kUkOlr1UAcLtJL761nvNUp9H5IjcReJadG1MsAC62imNwPHsrb2fzzS1zRpnGr5wxyML7+9K9p9dJjkmSJ/Xii72rB53TQAjeHOe9Y6muYG9FFcfBDiWqheyxsEsnYU/5GWj3MuC47BvtMX6nK86sqCznsyfq6YvolXaraCch2EKeXGbhwSKVi6bvSx50F1tK8QEgtDJelCVOTeb/rzWdKAIFzAMATjohejFRNSXtoTprlVqcFja5avDVqLjVMHNX4pxDgRSEYem8zC4uN justin.debo@gmail.com"
-vpc_id         = "vpc-4ca50f27"
