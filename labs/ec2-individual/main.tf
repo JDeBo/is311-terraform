@@ -28,10 +28,14 @@ data "aws_vpc" "controltower" {
 }
 
 data "aws_subnet" "controltower" {
+  vpc_id = data.aws_vpc.controltower.id
   filter {
     name   = "tag:Name"
-    values = ["*Private*1*"] # update for you subnets
+    values = ["*Public*"] # update for you subnets
   }
+  depends_on = [
+    data.aws_vpc.controltower
+  ]
 }
 
 # data "aws_ami" "linux_2" {
