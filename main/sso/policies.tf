@@ -1,6 +1,6 @@
 data "aws_iam_policy_document" "sso" {
   statement {
-
+    sid = "studentResources"
     actions = [
       "ec2:*",
       "ec2-instance-connect:SendSSHPublicKey",
