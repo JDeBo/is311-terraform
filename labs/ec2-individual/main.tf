@@ -30,7 +30,7 @@ data "aws_vpc" "controltower" {
 data "aws_subnet" "controltower" {
   filter {
     name   = "tag:Name"
-    values = ["PublicSubnet1*"] # update for you subnets
+    values = ["PublicSubnet1a"] # update for you subnets
   }
 }
 
