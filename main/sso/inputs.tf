@@ -1,6 +1,6 @@
 variable "students" {
   description = "Map of students to create users for."
-  type        = list(map(string))
+  type        = set(map(string))
   default = [{
     "first_name" = "DeBo"
     "last_name"  = "DeBo"
