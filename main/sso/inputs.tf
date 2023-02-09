@@ -1,11 +1,11 @@
 variable "students" {
   description = "Map of students to create users for."
-  type        = set(map(string))
-  default = [{
+  type        = map(map(string))
+  default = { "justin-debo" = {
     "first_name" = "DeBo"
     "last_name"  = "DeBo"
     "email"      = "jdebo@millikin.edu"
-  }]
+  } }
 }
 
 variable "target_account_id" {
