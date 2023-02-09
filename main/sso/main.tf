@@ -24,8 +24,8 @@ module "student_iam" {
   source = "../../modules/student_sso_user"
 
   for_each                = var.students
-  first_name              = each.value.first_name
-  last_name               = each.value.last_name
+  first_name              = each.value.firstname
+  last_name               = each.value.lastname
   email                   = each.value.email
   identity_store_id       = local.sso_instance_identitystore_id
   identity_store_group_id = aws_identitystore_group.students.group_id
