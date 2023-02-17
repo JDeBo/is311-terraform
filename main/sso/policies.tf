@@ -12,7 +12,7 @@ data "aws_iam_policy_document" "sso" {
       "arn:aws:ec2:${var.region}:${var.target_account_id}:subnet/*",
       "arn:aws:ec2:${var.region}:${var.target_account_id}:route-table/*",
       "arn:aws:ec2:${var.region}:${var.target_account_id}:security-group*/*",
-      "arn:aws:s3:::*",
+      "arn:aws:s3:*",
 
     ]
 
@@ -59,11 +59,11 @@ data "aws_iam_policy_document" "sso" {
 
 }
 
-# resource "aws_ssoadmin_permission_set_inline_policy" "sso" {
-#   inline_policy      = data.aws_iam_policy_document.sso.json
-#   instance_arn       = local.sso_instance_arn
-#   permission_set_arn = aws_ssoadmin_permission_set.students.arn
-# }
+resource "aws_ssoadmin_permission_set_inline_policy" "sso" {
+  inline_policy      = data.aws_iam_policy_document.sso.json
+  instance_arn       = local.sso_instance_arn
+  permission_set_arn = aws_ssoadmin_permission_set.students.arn
+}
 # Probably don't need this
 resource "aws_iam_policy" "students" {
   name        = "StudentMainPolicy"
@@ -73,7 +73,7 @@ resource "aws_iam_policy" "students" {
 }
 
 resource "aws_ssoadmin_customer_managed_policy_attachment" "students" {
-  instance_arn       = aws_ssoadmin_permission_set.students.instance_arn
+  instance_arn       = local.sso_instance_arn
   permission_set_arn = aws_ssoadmin_permission_set.students.arn
   customer_managed_policy_reference {
     name = aws_iam_policy.students.name
