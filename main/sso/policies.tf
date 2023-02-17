@@ -28,6 +28,27 @@ data "aws_iam_policy_document" "sso" {
   }
 
   statement {
+    sid = "studentS3"
+    actions = [
+      "s3:*"
+    ]
+
+    resources = [
+      "arn:aws:s3:::*",
+      # "arn:aws:s3:::*/*",
+    ]
+
+    condition {
+      test     = "StringLike"
+      variable = "S3:ResourceTag/Owner"
+      values = [
+        "Group*",
+        "*&{aws:userid}*",
+      ]
+    }
+  }
+
+  statement {
     sid = "globalList"
     actions = [
       "ec2:DescribeInstances",
