@@ -4,7 +4,6 @@ data "aws_iam_policy_document" "sso" {
     actions = [
       "ec2:*",
       "ec2-instance-connect:SendSSHPublicKey",
-      "s3:*"
     ]
 
     resources = [
@@ -12,9 +11,6 @@ data "aws_iam_policy_document" "sso" {
       "arn:aws:ec2:${var.region}:${var.target_account_id}:subnet/*",
       "arn:aws:ec2:${var.region}:${var.target_account_id}:route-table/*",
       "arn:aws:ec2:${var.region}:${var.target_account_id}:security-group*/*",
-      "arn:aws:s3:::*",
-      "arn:aws:s3:::*/*",
-
     ]
 
     condition {
@@ -35,7 +31,6 @@ data "aws_iam_policy_document" "sso" {
 
     resources = [
       "arn:aws:s3:::*",
-      # "arn:aws:s3:::*/*",
     ]
 
     condition {
@@ -57,6 +52,7 @@ data "aws_iam_policy_document" "sso" {
       "access-analyzer:Get*",
       "access-analyzer:ValidatePolicy",
       "s3:ListAllMyBuckets",
+      "s3:ListBucket",
       "s3:GetBucketLocation",
       "s3:GetAccountPublicAccessBlock",
       "s3:GetBucketPublicAccessBlock",
