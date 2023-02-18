@@ -30,8 +30,8 @@ data "aws_iam_policy_document" "sso" {
     ]
 
     resources = [
-      "arn:aws:s3:::*&{PrincipalTag/DisplayName}*",
-      "arn:aws:s3:::*&{PrincipalTag/DisplayName}*/*",
+      "arn:aws:s3:::*&{aws:PrincipalTag/DisplayName}*",
+      "arn:aws:s3:::*&{aws:PrincipalTag/DisplayName}*/*",
     ]
   }
 
