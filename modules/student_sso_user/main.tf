@@ -1,7 +1,7 @@
 resource "aws_identitystore_user" "this" {
   identity_store_id = var.identity_store_id
 
-  display_name = "${var.first_name} ${var.last_name}"
+  display_name = "${lower(var.first_name)}-${lower(var.last_name)}"
   user_name    = var.email
 
   name {
