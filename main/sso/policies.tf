@@ -38,6 +38,10 @@ data "aws_iam_policy_document" "sso" {
   statement {
     sid = "classS3"
     actions = [
+      "s3:GetAccountPublicAccessBlock",
+      "s3:GetBucketPublicAccessBlock",
+      "s3:GetBucketPolicyStatus",
+      "s3:GetBucketAcl",
       "s3:PutObject",
       "s3:GetObject",
       "s3:ListObject"
@@ -59,10 +63,6 @@ data "aws_iam_policy_document" "sso" {
       "access-analyzer:ValidatePolicy",
       "s3:ListAllMyBuckets",
       "s3:GetBucketLocation",
-      "s3:GetAccountPublicAccessBlock",
-      "s3:GetBucketPublicAccessBlock",
-      "s3:GetBucketPolicyStatus",
-      "s3:GetBucketAcl",
       "s3:ListAccessPoints",
       "workspaces:*",
       "ds:*",
