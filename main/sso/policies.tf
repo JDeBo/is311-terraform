@@ -30,17 +30,23 @@ data "aws_iam_policy_document" "sso" {
     ]
 
     resources = [
-      "arn:aws:s3:::*",
+      "arn:aws:s3:::*${PrincipalTag/DisplayName}*",
+      "arn:aws:s3:::*${PrincipalTag/DisplayName}*/*",
+    ]
+  }
+
+  statement {
+    sid = "classS3"
+    actions = [
+      "s3:PutObject",
+      "s3:GetObject",
+      "s3:ListObject"
     ]
 
-    condition {
-      test     = "StringLike"
-      variable = "S3:ResourceTag/Owner"
-      values = [
-        "Group*",
-        "*&{aws:userid}*",
-      ]
-    }
+    resources = [
+      "arn:aws:s3:::*group*",
+      "arn:aws:s3:::*group*/*",
+    ]
   }
 
   statement {
@@ -52,7 +58,6 @@ data "aws_iam_policy_document" "sso" {
       "access-analyzer:Get*",
       "access-analyzer:ValidatePolicy",
       "s3:ListAllMyBuckets",
-      "s3:ListBucket",
       "s3:GetBucketLocation",
       "s3:GetAccountPublicAccessBlock",
       "s3:GetBucketPublicAccessBlock",
