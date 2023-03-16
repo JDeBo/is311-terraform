@@ -4,7 +4,7 @@ variable "students" {
   default = { "justin-debo" = {
     "firstname" = "DeBo"
     "lastname"  = "DeBo"
-    "email"      = "jdebo@millikin.edu"
+    "email"     = "jdebo@millikin.edu"
   } }
 }
 

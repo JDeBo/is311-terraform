@@ -66,6 +66,13 @@ data "aws_iam_policy_document" "sso" {
       "s3:ListAccessPoints",
       "workspaces:*",
       "ds:*",
+      "compute-optimizer:GetEnrollmentStatus",
+      "cloudwatch:ListMetrics",
+      "cloudwatch:GetMetricStatistics",
+      "cloudwatch:Describe*",
+      "autoscaling:Describe*",
+      "elasticloadbalancing:Describe*",
+      "ssm:DescribeInstanceInformation"
     ]
     resources = ["*"]
   }
