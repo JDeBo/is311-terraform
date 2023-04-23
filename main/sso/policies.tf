@@ -85,6 +85,7 @@ data "aws_iam_policy_document" "sso" {
     actions = [
       "workspaces:Create*",
       "ds:Create*",
+      "ec2:TerminateInstances"
     ]
     resources = ["*"]
   }

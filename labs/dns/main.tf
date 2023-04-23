@@ -5,6 +5,8 @@ terraform {
       name = "is311-dns-lab"
     }
   }
+  required_version = ">= 1.3"
+
 }
 
 provider "aws" {
@@ -24,14 +26,20 @@ resource "aws_route53_zone" "main" {
   name = "is311.justindebo.com"
 }
 
-resource "aws_route53_record" "www-live" {
-  count = 3
+resource "aws_route53_record" "root" {
   zone_id = aws_route53_zone.main.zone_id
-  name    = "site${count.index+1}"
-  type    = "CNAME"
-  ttl     = 60
+  name    = aws_route53_zone.main.name
+  type    = "A"
 
-  records        = ["http://is311-sites.s3-website.us-east-2.amazonaws.com/site${count.index+1}"]
+  alias {
+    name                   = data.aws_cloudfront_distribution.main.domain_name
+    zone_id                = data.aws_cloudfront_distribution.main.hosted_zone_id
+    evaluate_target_health = false
+  }
+}
+
+data "aws_cloudfront_distribution" "main" {
+  id = "E2FUZ316LEW1C3"
 }
 
 resource "aws_route53_zone" "students" {
