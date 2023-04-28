@@ -26,6 +26,29 @@ data "aws_iam_policy_document" "sso" {
   }
 
   statement {
+    sid = "classResources"
+    actions = [
+      "ec2:List*",
+      "ec2:Describe*",
+    ]
+
+    resources = [
+      "arn:aws:ec2:${var.region}:${var.target_account_id}:instance/*",
+      "arn:aws:ec2:${var.region}:${var.target_account_id}:subnet/*",
+      "arn:aws:ec2:${var.region}:${var.target_account_id}:route-table/*",
+      "arn:aws:ec2:${var.region}:${var.target_account_id}:security-group*/*",
+    ]
+
+    condition {
+      test     = "StringLike"
+      variable = "aws:ResourceTag/Owner"
+      values = [
+        "*is311*"
+      ]
+    }
+  }
+
+  statement {
     sid = "studentS3"
     actions = [
       "s3:*"
