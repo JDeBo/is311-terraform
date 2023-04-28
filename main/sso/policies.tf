@@ -10,19 +10,20 @@ data "aws_iam_policy_document" "sso" {
     resources = [
       "arn:aws:ec2:${var.region}:${var.target_account_id}:instance/*",
       "arn:aws:ec2:${var.region}:${var.target_account_id}:subnet/*",
+      "arn:aws:ec2:${var.region}:${var.target_account_id}:vpc/*",
       "arn:aws:ec2:${var.region}:${var.target_account_id}:route-table/*",
       "arn:aws:ec2:${var.region}:${var.target_account_id}:security-group*/*",
       "arn:aws:route53:::hostedzone/*",	
     ]
 
-    # condition {
-    #   test     = "StringLike"
-    #   variable = "aws:ResourceTag/Owner"
-    #   values = [
-    #     "Group*",
-    #     "*&{aws:userid}*",
-    #   ]
-    # }
+    condition {
+      test     = "StringLike"
+      variable = "aws:ResourceTag/Owner"
+      values = [
+        "Group*",
+        "*&{aws:userid}*",
+      ]
+    }
   }
 
   statement {
@@ -35,6 +36,7 @@ data "aws_iam_policy_document" "sso" {
     resources = [
       "arn:aws:ec2:${var.region}:${var.target_account_id}:instance/*",
       "arn:aws:ec2:${var.region}:${var.target_account_id}:subnet/*",
+      "arn:aws:ec2:${var.region}:${var.target_account_id}:vpc/*",
       "arn:aws:ec2:${var.region}:${var.target_account_id}:route-table/*",
       "arn:aws:ec2:${var.region}:${var.target_account_id}:security-group*/*",
     ]
