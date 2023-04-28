@@ -106,6 +106,9 @@ data "aws_iam_policy_document" "sso" {
       "elasticloadbalancing:Describe*",
       "ssm:DescribeInstanceInformation",
       "ec2:DescribeVpcs",
+      "ec2:DescribeNetworkAcls",
+      "ec2:DescribeRouteTables",
+      "ec2:DescribeRouteTables",
       "ec2:DescribeSubnets"
     ]
     resources = ["*"]
