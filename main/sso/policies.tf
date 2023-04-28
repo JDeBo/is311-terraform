@@ -15,14 +15,14 @@ data "aws_iam_policy_document" "sso" {
       "arn:aws:route53:::hostedzone/*",	
     ]
 
-    condition {
-      test     = "StringLike"
-      variable = "aws:ResourceTag/Owner"
-      values = [
-        "Group*",
-        "*&{aws:userid}*",
-      ]
-    }
+    # condition {
+    #   test     = "StringLike"
+    #   variable = "aws:ResourceTag/Owner"
+    #   values = [
+    #     "Group*",
+    #     "*&{aws:userid}*",
+    #   ]
+    # }
   }
 
   statement {
