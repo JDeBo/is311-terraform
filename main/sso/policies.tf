@@ -37,7 +37,7 @@ data "aws_iam_policy_document" "sso" {
     resources = [
       "arn:aws:ec2:${var.region}:${var.target_account_id}:instance/*",
       "arn:aws:ec2:${var.region}:${var.target_account_id}:subnet/*",
-      "arn:aws:ec2:${var.region}:${var.target_account_id}:vpc/*",
+      "arn:aws:ec2:${var.region}:${var.target_account_id}:vpc*/*",
       "arn:aws:ec2:${var.region}:${var.target_account_id}:route-table/*",
       "arn:aws:ec2:${var.region}:${var.target_account_id}:security-group*/*",
     ]
