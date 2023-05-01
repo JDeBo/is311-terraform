@@ -30,6 +30,26 @@ data "aws_iam_policy_document" "sso" {
   }
 
   statement {
+    sid = "studentR53"
+    actions = [
+      "route53:*"
+    ]
+
+    resources = [
+      "arn:aws:route53:::hostedzone/*",	
+    ]
+
+    condition {
+      test     = "StringLike"
+      variable = "route53:ResourceTag/Owner"
+      values = [
+        "Group*",
+        "*&{aws:userid}*",
+      ]
+    }
+  }
+
+  statement {
     sid = "classResources"
     actions = [
       "ec2:List*",
