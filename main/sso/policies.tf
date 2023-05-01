@@ -106,7 +106,7 @@ data "aws_iam_policy_document" "sso" {
       "ssm:DescribeInstanceInformation",
       "ec2:Describe*",
       "route53:GetHostedZoneCount",
-      "route53:Describe*",
+      "route53:ListHostedZonesByName",
     ]
     resources = ["*"]
   }
