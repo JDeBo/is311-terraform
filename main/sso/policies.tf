@@ -84,7 +84,6 @@ data "aws_iam_policy_document" "sso" {
   statement {
     sid = "globalList"
     actions = [
-      "ec2:DescribeInstances",
       "cloudshell:*",
       "access-analyzer:List*",
       "access-analyzer:Get*",
@@ -106,6 +105,8 @@ data "aws_iam_policy_document" "sso" {
       "elasticloadbalancing:Describe*",
       "ssm:DescribeInstanceInformation",
       "ec2:Describe*",
+      "route53:GetHostedZoneCount",
+      "route53:Describe*",
     ]
     resources = ["*"]
   }
