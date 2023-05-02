@@ -15,7 +15,7 @@ data "aws_iam_policy_document" "sso" {
       "arn:aws:ec2:${var.region}:${var.target_account_id}:route-table/*",
       "arn:aws:ec2:${var.region}:${var.target_account_id}:security-group*/*",
       "arn:aws:ec2:${var.region}:${var.target_account_id}:image/*",
-      "arn:aws:route53:::hostedzone/*",	
+      "arn:aws:route53:::hostedzone/*",
     ]
 
     condition {
@@ -35,7 +35,7 @@ data "aws_iam_policy_document" "sso" {
     ]
 
     resources = [
-      "arn:aws:route53:::hostedzone/*",	
+      "arn:aws:route53:::hostedzone/*",
     ]
 
     condition {

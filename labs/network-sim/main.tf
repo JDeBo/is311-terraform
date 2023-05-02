@@ -97,7 +97,7 @@ resource "tls_private_key" "ed25519" {
 }
 
 output "tls_private_key" {
-  value = trimspace(tls_private_key.ed25519.private_key_pem)
+  value     = trimspace(tls_private_key.ed25519.private_key_pem)
   sensitive = true
 }
 

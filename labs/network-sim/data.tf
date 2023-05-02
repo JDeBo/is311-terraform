@@ -24,8 +24,8 @@ data "http" "my_ip" {
 
 
 data "aws_ami" "netsim" {
-#   executable_users = ["self"]
-  most_recent      = true
+  #   executable_users = ["self"]
+  most_recent = true
   #   name_regex       = "^minecrafty-\\d{3}"
   owners = ["self"]
 

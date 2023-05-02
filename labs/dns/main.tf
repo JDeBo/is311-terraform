@@ -43,8 +43,8 @@ data "aws_cloudfront_distribution" "main" {
 }
 
 resource "aws_route53_zone" "students" {
-  for_each = var.students
-  name = "${lower(each.value.firstname)}-${lower(each.value.lastname)}.${aws_route53_zone.main.name}"
+  for_each      = var.students
+  name          = "${lower(each.value.firstname)}-${lower(each.value.lastname)}.${aws_route53_zone.main.name}"
   force_destroy = true
 
   tags = {
@@ -54,9 +54,9 @@ resource "aws_route53_zone" "students" {
 
 resource "aws_route53_record" "students" {
   for_each = aws_route53_zone.students
-  zone_id = aws_route53_zone.main.zone_id
-  name    = each.value.name
-  type    = "NS"
-  ttl     = "30"
-  records = each.value.name_servers
+  zone_id  = aws_route53_zone.main.zone_id
+  name     = each.value.name
+  type     = "NS"
+  ttl      = "30"
+  records  = each.value.name_servers
 }
