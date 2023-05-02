@@ -41,7 +41,7 @@ data "aws_iam_policy_document" "sso" {
 
     condition {
       test     = "StringLike"
-      variable = "route53:ResourceTag/Owner"
+      variable = "aws:ResourceTag/Owner"
       values = [
         "Group*",
         "*&{aws:userid}*",
@@ -127,6 +127,7 @@ data "aws_iam_policy_document" "sso" {
       "ec2:Describe*",
       "route53:GetHostedZoneCount",
       "route53:ListHostedZonesByName",
+      "route53:ListHostedZone",
     ]
     resources = ["*"]
   }

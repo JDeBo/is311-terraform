@@ -45,6 +45,7 @@ data "aws_cloudfront_distribution" "main" {
 resource "aws_route53_zone" "students" {
   for_each = var.students
   name = "${lower(each.value.firstname)}-${lower(each.value.lastname)}.${aws_route53_zone.main.name}"
+  force_destroy = true
 
   tags = {
     Owner = "${data.aws_iam_role.sso.unique_id}:${each.value.email}"
