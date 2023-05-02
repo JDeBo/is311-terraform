@@ -4,7 +4,6 @@ data "aws_iam_policy_document" "sso" {
     actions = [
       "ec2:*",
       "ec2-instance-connect:SendSSHPublicKey",
-      "route53:*"
     ]
 
     resources = [
@@ -32,7 +31,7 @@ data "aws_iam_policy_document" "sso" {
   statement {
     sid = "studentR53"
     actions = [
-      "route53:*"
+      "route53:ChangeResourceRecordSets",
     ]
 
     resources = [
@@ -132,11 +131,12 @@ data "aws_iam_policy_document" "sso" {
   }
 
   statement {
-    sid    = "workspaceDenyCreate"
+    sid    = "GlobalDeny"
     effect = "Deny"
     actions = [
       "workspaces:Create*",
       "ds:Create*",
+      "route53:DeleteHostedZone",
       "ec2:TerminateInstances"
     ]
     resources = ["*"]
