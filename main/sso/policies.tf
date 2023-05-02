@@ -40,11 +40,10 @@ data "aws_iam_policy_document" "sso" {
     ]
 
     condition {
-      test     = "StringLike"
-      variable = "aws:ResourceTag/Owner"
+      test     = "ForAllValues:StringEquals"
+      variable = "aws:ChangeResourceRecordSetsNormalizedRecordNames"
       values = [
-        "Group*",
-        "*&{aws:userid}*",
+        "&{aws:PrincipalTag/DisplayName}*",
       ]
     }
   }
