@@ -1,5 +1,4 @@
 resource "aws_security_group" "this" {
-  name        = "is311-networking-${var.student_id}"
   description = "Networking Lab student subnet"
   vpc_id      = var.vpc_id
 
@@ -27,10 +26,7 @@ resource "aws_security_group" "this" {
     cidr_blocks = [var.vpc_cidr]
   }
 
-  tags = {
-    Name  = "is311-networking-${var.student_id}"
-    Owner = var.student_id
-  }
+  tags = local.tags
 
   lifecycle {
     ignore_changes = [

@@ -1,7 +1,11 @@
-variable "student_id" {
-  description = "ID of student in AWS."
+variable "aws_userid" {
+  description = "For SSO, needs to be an aws username matching the pattern ROLEUNIQUEID:caller-name eg. AROAU6CWOEXAMPLE:example@gmail.com"
   type        = string
-  default     = "justin-debo"
+}
+
+variable "student_id" {
+  description = "Id for student resources following patter firstname-lastname eg. john-smith"
+  type        = string
 }
 
 variable "vpc_id" {
@@ -19,4 +23,8 @@ variable "instance_profile" {
 
 variable "vpc_cidr" {
   description = "CIDR Range for the VPC"
+}
+
+variable "instance_name" {
+  description = "Name for the instance"
 }

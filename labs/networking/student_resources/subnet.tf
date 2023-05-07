@@ -4,20 +4,15 @@ resource "aws_subnet" "this" {
   availability_zone       = "us-east-2a"
   map_public_ip_on_launch = true
 
-  tags = {
-    Name  = "is311-networking-${var.student_id}"
-    Owner = var.student_id
-  }
+  tags = local.tags
+
 }
 
 resource "aws_route_table" "this" {
   vpc_id = var.vpc_id
   route  = []
 
-  tags = {
-    Name  = "is311-networking-${var.student_id}"
-    Owner = var.student_id
-  }
+  tags = local.tags
 
   lifecycle {
     ignore_changes = [route]
