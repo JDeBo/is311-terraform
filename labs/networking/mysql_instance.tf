@@ -20,7 +20,7 @@ resource "aws_instance" "lab" {
   vpc_security_group_ids = [aws_security_group.this.id]
   subnet_id              = aws_subnet.this.id
   iam_instance_profile   = aws_iam_instance_profile.this.id
-  key_name               = aws_key_pair.this.key_name
+  key_name               = aws_key_pair.mysql.key_name
   user_data              = <<EOF
 #!/bin/bash
 sudo yum install mariadb-server -y
@@ -46,9 +46,34 @@ EOF
   tags = {
     Name = "is311-networking-mysql-server"
   }
+
+  # Credits to @ryanpric for most of this
+  # Now provision the instance with local Minecraft files & the init script
+  connection {
+    host        = self.public_ip # instead of EIP, since that won't be assigned until after all provisioners run
+    private_key = tls_private_key.mysql.private_key_pem
+    user        = "ec2-user"
+  }
+
+
+  provisioner "file" {
+    source      = "data" # a directory
+    destination = "/tmp"
+  }
+
+  provisioner "remote-exec" {
+    inline = [
+      "sudo -E bash /tmp/data/init.sh"
+    ]
+  }
 }
 
-resource "aws_key_pair" "this" {
-  key_name   = "studentkeypair"
-  public_key = var.public_key
+resource "aws_key_pair" "mysql" {
+  key_name   = "mysql_kp"
+  public_key = tls_private_key.mysql.public_key_pem
+}
+
+resource "tls_private_key" "mysql" {
+  algorithm = "RSA"
+  rsa_bits  = 4096
 }
