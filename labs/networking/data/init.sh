@@ -18,5 +18,5 @@ pid-file=/var/run/mariadb/mariadb.pid
 sudo systemctl start mariadb
 mysql -u root -e "CREATE USER 'student'@'%' IDENTIFIED BY 'password';"
 mysql -u root -e "CREATE DATABASE is311;"
-mysql -u root is311 < movies.sql
+mysql -u root is311 < /tmp/movies.sql
 mysql -u root is311 -e "SELECT * from movies limit 1"
