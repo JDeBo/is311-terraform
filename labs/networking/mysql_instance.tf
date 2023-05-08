@@ -21,28 +21,7 @@ resource "aws_instance" "lab" {
   subnet_id              = aws_subnet.this.id
   iam_instance_profile   = aws_iam_instance_profile.this.id
   key_name               = aws_key_pair.mysql.key_name
-  user_data              = <<EOF
-#!/bin/bash
-sudo yum install mariadb-server -y
-sudo systemctl enable mariadb
 
-echo "[mysqld]
-datadir=/var/lib/mysql
-socket=/var/lib/mysql/mysql.sock
-bind-address=0.0.0.0
-symbolic-links=0
-
-[mysqld_safe]
-log-error=/var/log/mariadb/mariadb.log
-pid-file=/var/run/mariadb/mariadb.pid
-
-\!includedir /etc/my.cnf.d" | sudo tee /etc/my.cnf > /dev/null
-
-sudo systemctl start mariadb
-mysql -u root -e "CREATE USER 'student'@'%' IDENTIFIED BY 'password';"
-EOF
-
-  user_data_replace_on_change = true
   tags = {
     Name = "is311-networking-mysql-server"
   }
