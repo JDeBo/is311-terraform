@@ -59,11 +59,11 @@ resource "aws_security_group" "this" {
   }
 
   ingress {
-    description = "SSH from VPC"
+    description = "SSH from Anywhere"
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = [aws_vpc.networking_lab.cidr_block]
+    cidr_blocks = ["0.0.0.0/0"]
   }
 
   egress {
