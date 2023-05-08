@@ -70,7 +70,7 @@ EOF
 
 resource "aws_key_pair" "mysql" {
   key_name   = "mysql_kp"
-  public_key = tls_private_key.mysql.public_key_pem
+  public_key = tls_private_key.mysql.public_key_openssh
 }
 
 resource "tls_private_key" "mysql" {
