@@ -19,7 +19,8 @@ module "students" {
   subnet_cidr      = module.subnets.network_cidr_blocks[each.key]
   vpc_cidr         = aws_vpc.networking_lab.cidr_block
   instance_profile = aws_iam_instance_profile.this.id
-  aws_userid       = "${data.aws_iam_role.sso.unique_id}:${each.value.email}"
+  # aws_userid       = "${data.aws_iam_role.sso.unique_id}:${each.value.email}"
+  aws_userid       = "AROAU6CWOI5MOPHUSZZGO:${each.value.email}"
   instance_name    = "${each.value.firstname}-${each.value.lastname}-networking-final"
   student_id       = "${each.value.firstname}-${each.value.lastname}"
 }
@@ -35,6 +36,6 @@ data "aws_iam_roles" "sso" {
   path_prefix = "/aws-reserved/sso.amazonaws.com/"
 }
 
-data "aws_iam_role" "sso" {
-  name = tolist(data.aws_iam_roles.sso.names)[0]
-}
+# data "aws_iam_role" "sso" {
+#   name = tolist(data.aws_iam_roles.sso.names)[0]
+# }
